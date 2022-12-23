@@ -1,0 +1,100 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/** @var \Amasty\ShopbyBase\Model\FilterSetting $filterSetting */
+/** @var \Amasty\Shopby\Block\Navigation\FilterRenderer $block */
+
+$filterUniqId = $block->escapeId(uniqid());
+$filterCode = $block->escapeHtml($filterSetting->getFilterCode());
+?>
+
+<?php if ($filterSetting->isShowSearchBox(count($filterItems))) : ?>
+    <?= /* @noEscape */ $block->getSearchForm(); ?>
+<?php endif; ?>
+
+<form data-am-js="am-ranges"
+      data-amshopby-filter="<?= $block->escapeHtml($filterCode);?>"
+      data-amshopby-filter-request-var="<?= $block->escapeHtml($block->getFilter()->getRequestVar()); ?>"
+      autocomplete="off">
+    <ol class="items am-filter-items-<?= /* @noEscape */ $filterCode;?> test"
+        <?php if ($filterSetting->getEnableOverflowScroll() > 0) : ?>
+            style="max-height:<?= $block->escapeHtml($filterSetting->getEnableOverflowScroll()) ?>px;
+                    overflow-y: auto;
+                    overflow-x: hidden;"
+        <?php endif; ?>>
+        <?php /** @var \Amasty\Shopby\Model\Layer\Filter\Item $filterItem */?>
+        <?php foreach ($filterItems as $filterItem) : ?>
+            <?php $uniqId = uniqid(); ?>
+            <?php $inputType = !$filterSetting->isMultiselect() ||
+            in_array($filterCode, ['rating', 'stock']) ? 'radio' : 'checkbox'?>
+        <li class="item" <?php if($filterItem->getOptionLabel()=='GMO Free' || $filterItem->getOptionLabel()=='Non - Gmo'){echo 'style="display:none;"'; }?> data-label="<?= $block->escapeHtml($filterItem->getOptionLabel())?>">
+            <?php if ($filterItem->getCount() >= 0) : ?>
+                <a
+                    class="am-filter-item-<?= /* @noEscape */ $block->escapeId($uniqId)?>"
+                    data-am-js="filter-item-default"
+                    href="<?= $block->escapeUrl($filterItem->getUrl()) ?>"
+                    <?= /* @noEscape */ $filterSetting->isAddNofollow() ? ' rel="nofollow"' : '' ?>
+                >
+                    <?php $style = ($inputType == 'radio' && !$block->getRadioAllowed())
+                        || in_array($filterCode, ['rating', 'stock'])  ? 'display: none;' : ''; ?>
+                    <input
+                        name="amshopby[<?= /* @noEscape */ $block->getFilter()->getRequestVar();?>][]"
+                        value="<?= $block->escapeHtml($filterItem->getValueString());?>"
+                        type="<?= /* @noEscape */ $inputType;?>"
+                        style="<?= /* @noEscape */ $style ?>"
+                        <?= /* @noEscape */ $block->checkedFilter($filterItem) ? ' checked' : ''; ?>
+                    />
+                    <span class="label"><?= /* @noEscape */ $filterItem->getOptionLabel() ?></span>
+                    <?php if ($filterSetting->isShowProductQuantities()) : ?>
+                        <span class="count">
+                            <?= /* @noEscape */ $filterItem->getCount()?>
+                            <span class="filter-count-label">
+                                <?php $title = ($filterItem->getCount() == 1) ? __('item') : __('items');?>
+                                <?= /* @noEscape */ $block->escapeHtml($title) ?>
+                            </span>
+                        </span>
+                    <?php endif; ?>
+                </a>
+            <?php else :?>
+                <span class="label"><?= /* @noEscape */ $filterItem->getOptionLabel() ?></span>
+                <?php if ($filterSetting->isShowProductQuantities()) : ?>
+                    <span class="count"><?= /* @noEscape */ $filterItem->getCount()?><span class="filter-count-label">
+                            <?php $title = ($filterItem->getCount() == 1) ? __('item') : __('items');?>
+                            <?= $block->escapeHtml($title) ?>
+                    </span></span>
+                <?php endif; ?>
+            <?php endif; ?>
+            </li>
+        <?php endforeach ?>
+    </ol>
+</form>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $(document).ready(function(){
+            setTimeout(function(){
+                $('a.remove.action').off().on('click', function(e){
+                    window.location.href = $(this).attr('href');
+                });
+                $('.ckbCheckAll').hide();
+                var itemParent = $('.ckbCheckAll').parent().parent();
+                $.each(itemParent, function( index, value ) {
+                    let len = $(value).find('input[type="radio"]').length;
+                    if(len == undefined || len == 0){
+                        $(value).find('.ckbCheckAll').show();
+                    }
+                });
+            }, 500);
+        });
+    });
+</script>
+
+<?php if ($filterSetting->getAddFromToWidget() && isset($fromToConfig) && is_array($fromToConfig)) :?>
+    <?= /* @noEscape */ $block->getFromToWidget('default') ?>
+<?php endif;?>

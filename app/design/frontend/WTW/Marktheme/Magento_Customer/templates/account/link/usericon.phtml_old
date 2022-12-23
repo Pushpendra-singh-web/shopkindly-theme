@@ -1,0 +1,15 @@
+<span class="quick-menu about-dd"
+          tabindex="0"
+          data-toggle="dropdown"
+          data-mage-init='{"dropdown":{"activeClass": "_active"}}'>
+    <?php $customer = $this->helper('WTW\Customerloggedin\Helper\Data'); ?>
+    <?php if($customer->isLoggedIn()){ ?>
+		<i class="icon black-user-icon-online"></i>
+		<!-- <span><?php //echo substr($customer->getLoggedinCustomerName(),0,7).'..'; ?></span> -->
+		<span><?php echo $customer->getLoggedinCustomerName(); ?><?php if($customer->getLoggedinCustomerLastName() != ''){ echo ' '.$customer->getLoggedinCustomerLastName();} ?></span>
+	<?php }else{ ?>
+		<i class="icon black-user-icon"></i>
+		<span>Sign In</span>
+	<?php } ?>
+
+</span>

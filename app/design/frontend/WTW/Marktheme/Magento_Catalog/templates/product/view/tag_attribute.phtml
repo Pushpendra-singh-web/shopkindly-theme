@@ -1,0 +1,21 @@
+<?php 
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_product = $block->getProduct(); ?>
+<?php if(!empty($_product->getData('tags'))) : ?>
+	<?php $attrdata = explode(',',$_product->getData('tags'));?>
+	<div class="product-tag-attr">
+		<ul class="tag-listing" style="">
+		<?php foreach($attrdata as $value): ?>
+		    <?php 
+		    $attr = $_product->getResource()->getAttribute('tags');
+		    if ($attr->usesSource()): ?>
+		        <?php 
+		            $option_value = $attr->getSource()->getOptionText($value);
+		            $css_class = explode(' ', $option_value);
+		        ?>
+		        <li style="list-style: inside; <?php if($option_value=="GMO Free" || $option_value=="Non - Gmo"){ echo "display: none;";}?>" class="icons-<?= strtolower($css_class[0]) ?>"><?= $option_value; ?></li>
+		    <?php endif;?>
+		<?php endforeach;?>
+		</ul>
+	</div>
+<?php endif; ?>

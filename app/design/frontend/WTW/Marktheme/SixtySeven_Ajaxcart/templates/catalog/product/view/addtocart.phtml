@@ -1,0 +1,145 @@
+<?php
+/**
+ * @category  SixtySeven
+ * @package   SixtySeven_Ajaxsuite
+ * @author    SixtySeven https://67commerce.com/
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add'); ?>
+<?php
+$IdDoProduto = $_product->getId();
+$cart = $this->helper('\Magento\Checkout\Helper\Cart');
+$itens = $cart->getQuote()->getItems();
+$item_qty = '';
+if (!empty($itens)) :
+    foreach ($itens as $item){
+        if($IdDoProduto == $item->getProduct_id()){
+            $item_qty  = $item->getQty();
+         }
+    }
+endif;
+    if (!empty($item_qty)) {
+        $item_qty  = $item->getQty();
+    } else {
+        $item_qty  = $block->getProductDefaultQty();
+    }
+
+?>
+<?php if ($_product->isSaleable()): ?>
+
+  <?php  if(!$cart->getQuote()->hasProductId($IdDoProduto)){
+    $class = "notavailable";
+     }
+  ?>
+
+
+<div class="atc-div" data-bind="scope: 'qtysection'">
+ 
+    <?php if(!$block->hasOptions()): ?>
+        <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+    <?php endif; ?>
+    <div class="box-tocart" <?php if(!$block->hasOptions()) { echo 'style="display: none;" data-bind="visible: true"'; } ?> >
+        
+        <div class="fieldset">
+
+            <div class="field qty">
+
+             <?php if ($block->shouldRenderQuantity()) :?>
+                <?php if($block->hasOptions()): ?>
+                    <label class="label" for="qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+                    <div class="control qty">
+                         <button type="button" disabled id="<?= /* @escapeNotVerified */ $_product->getId() ?>-minu"  class="decQty">-</button>
+
+                        <input type="number"
+                               name="qty"
+                                id="cart-<?= /* @escapeNotVerified */ $_product->getId() ?>-quantity"
+                               min="0"
+                               value="<?= $block->getProductDefaultQty() * 1 ?>"
+                               title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                               class="input-text qty"
+                               data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                               />
+                       <button type="button"  id="<?= /* @escapeNotVerified */ $_product->getId() ?>-plus" class="incQty">+</button>
+
+                       <!-- ko if: getItemInfoById(<?= $_product->getId() ?>)!='' -->
+                       <div style="display: none;" class="add-text-BG" data-bind="visible: true" id="cart_qty_txt-<?= /* @escapeNotVerified */ $_product->getId() ?>"><span data-bind="text: getItemInfoById(<?= $_product->getId() ?>)"></span> in basket</div>
+                       <!-- /ko -->
+                    </div>
+                <?php endif; ?>
+
+                <?php if(!$block->hasOptions()): ?>
+                    <!-- ko if: getItemInfoById(<?= $_product->getId() ?>)!='' -->
+                        <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+                        <div class="control qty">
+                                <button type="button" id="<?= /* @escapeNotVerified */ $_product->getId() ?>-dec"  class="decreaseQty">-</button>
+                                 <input type="number" id="cart-<?= /* @escapeNotVerified */ $_product->getId() ?>-qty"
+                                                       name="cart[<?= /* @escapeNotVerified */ $_product->getId() ?>][qty]" data-cart-item-id="<?= /* @escapeNotVerified */ $_product->getSku() ?>" data-bind="value: getItemInfoById(<?= $_product->getId() ?>)" size="4" title="<?= /* @escapeNotVerified */ __('Qty') ?>" class="input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="product-item-qty" readonly/>
+                               <button type="button"  id="<?= /* @escapeNotVerified */ $_product->getId() ?>-upt" class="increaseQty">+</button>
+                               <div style="display: none;" class="add-text-BG" data-bind="visible: true" id="cart_qty_txt-<?= /* @escapeNotVerified */ $_product->getId() ?>"><span data-bind="text: getItemInfoById(<?= $_product->getId() ?>)"></span> in basket</div>
+                        </div>
+                    <!-- /ko -->
+                     <?php endif; ?>
+                 <?php endif; ?>
+            </div>
+            <div class="actions">
+                <?php if ($block->shouldRenderQuantity()) :?>
+                    <?php if($block->hasOptions()): ?>
+                         <button type="submit"
+                                title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                                class="action primary tocart"
+                                id="product-addtocart-button">
+                            <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                        </button>
+                    <?php else: ?>
+                        <!-- ko if: getItemInfoById(<?= $_product->getId() ?>)=='' -->
+                        <button type="submit"
+                                title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                                class="action primary tocart"
+                                id="product-addtocart-button" style="display: none;" data-bind="visible: true">
+                            <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                        </button>
+                        <!-- /ko -->
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-del-info">Delivering in <span class="load-delivery-info-span"><span class="load-delivery-info">Brighton &amp; nearby</span></span> only.</div>
+
+<?php if($_product->getChangeCustomTextColor()=='1'): ?>
+  <div class="product-del-info highlight-text" style="color:#ff0057; display:block">
+    <?php echo $_product->getData('custom_text_in_listing'); ?>
+  </div>
+<?php else : ?>
+  <div class="product-del-info" style="display:block">
+    <?php echo $_product->getData('custom_text_in_listing'); ?>
+  </div>
+<?php endif; ?>
+<div class="additonal-addto actions">
+    <?= $block->getChildHtml('', true) ?>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {
+                "bindSubmit": true
+            }
+        },
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "qtysection": {
+                        "component": "SixtySeven_Ajaxcart/js/qtysection"
+                    }
+                }
+            }
+        }
+    }
+</script>

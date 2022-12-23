@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magento_Theme::css/owl.carousel.css"/>
+    </head>
+    <body>
+        <referenceContainer name="header-wrapper">
+          <container name="my.container" as="myContainer" label="My Container" htmlTag="div" htmlClass="left-block" before="-">
+
+          </container>
+          <container name="my.container.new" as="myContainernew" label="My Container New" htmlTag="div" htmlClass="right-block">
+            <container name="sell.on.tovee" label="Sell on tovee" htmlTag="div" htmlClass="sellontovee">
+                <block class="Magento\Framework\View\Element\Html\Links" name="sellontovee.links">
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">sellontovee links</argument>
+                    </arguments>
+                    <block class="Magento\Framework\View\Element\Html\Link" name="sellontovee-anchor">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Sell On Tovee</argument>
+                            <argument name="path" xsi:type="string">marketplace/application/form</argument>
+                            <argument name="class" xsi:type="string">sell-on-tovee</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </container>
+            <container name="account.links.aftercart" label="Accounts link" htmlTag="div" htmlClass="account links field-tooltip toggle custom-account-link">
+                <block class="Magento\Framework\View\Element\Template" template="Magento_Customer::account/link/usericon.phtml" name="myaccount-link-usericon" before="-"/>
+                <block class="Magento\Framework\View\Element\Html\Links" name="accountlinks.links" template="Magento_Customer::account/links.phtml">
+                    <arguments>
+                        <argument name="css_class" xsi:type="string">account link wrapper field-tooltip-content</argument>
+                    </arguments>
+                    <block class="Magento\Customer\Block\Account\Link" name="my-account-link-wrap" template="Magento_Customer::account/link/myaccount.phtml">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">My Account</argument>
+                            <argument name="sortOrder" xsi:type="number">10</argument>
+                            <argument name="view_model" xsi:type="object">WTW\Marketplace\ViewModel\Customer\Account\Auth</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\AuthorizationLink" name="my-account-link">
+                        <arguments>
+                            <argument name="sortOrder" xsi:type="number">20</argument>
+                            <argument name="class" xsi:type="string">myaccount-link-icon</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Customer\Block\Account\RegisterLink" name="my-account-register-link">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Create an Account</argument>
+                            <argument name="sortOrder" xsi:type="number">30</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </container>
+          </container>
+        </referenceContainer>
+
+        <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">105</argument>
+                <argument name="logo_img_height" xsi:type="number">36</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="footer-container">
+            <container name="before.footer" label="before footer" htmlTag="div" htmlClass="before-foot" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="above_footer" template="Magento_Theme::foottabs.phtml">
+                  <block class="Magento\Cms\Block\Block" name="foot-tab-cms-block">
+                      <arguments>
+                          <argument name="block_id" xsi:type="string">foot-tabs</argument>
+                      </arguments>
+                  </block>
+                </block>
+            </container>
+            <container name="follow.us" label="follow us" htmlTag="div" htmlClass="follow-us">
+                <block class="Magento\Cms\Block\Block" name="follow_us">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">follow_us</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="new.footer" label="new footer" htmlTag="div" htmlClass="new-foot">
+                <block class="Magento\Cms\Block\Block" name="new_footer">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">new_footer</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="footer">
+          <container name="new.copy" label="new copy" htmlTag="div" htmlClass="new-copy">
+              <block class="Magento\Cms\Block\Block" name="new_copy" before="-">
+                  <arguments>
+                      <argument name="block_id" xsi:type="string">new_copy</argument>
+                  </arguments>
+              </block>
+              <block class="Magento\Directory\Block\Currency" name="currency" template="currency.phtml"/>
+          </container>
+        </referenceContainer>
+        <referenceBlock name="report.bugs" remove="true" />
+        <move element="logo" destination="my.container"  before="-"/>
+        <move element="top.search" destination="my.container" after="logo"/>
+        <move element="minicart" destination="my.container.new" />
+        <move element="wish-list-link-custom" destination="my.container.new" after="minicart"/>
+        <move element="sell.on.tovee" destination="my.container.new" before="account.links.aftercart" />
+        <move element="new.footer" destination="footer" before="new.copy"/>
+        <move element="follow.us" destination="footer" before="-"/>
+        <referenceBlock name="header.panel" remove="true" />
+        <referenceBlock name="catalog.compare.link" remove="true"/> <!-- Remove link in header -->
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="top.links">
+          <referenceBlock name="store.links" remove="true"/>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,170 @@
+<?php
+    $viewModel = $block->getViewModel();
+
+?>
+<?php if ( $block->enableDisable() && $viewModel->isAllowedForCurrentCountry()) : ?>
+    <?php
+    if ( $block->getType() == 'v-bar' ) {
+        $width = '93%';
+    } else {
+        $width = 'auto';
+    }
+    $fontFamily = $block->headerTextFontFamily();
+    $fontFamily = str_replace('+', ' ', $fontFamily);
+    $fontFamily = "'" . $fontFamily . "'";
+    ?>
+    <div class="overlay" id="cookienotice_overlay" style="display: none;"></div>
+    <div id="m-cookienotice"
+         class="<?php echo $block->getType(); ?> <?php echo ($block->getType() == 'v-bar') ? $block->getBarPosition() : $block->getBoxPosition(); ?> cookie-policy" style="display: none;">
+
+        <div class="cookie-box">
+          <div id="message-custom-css" class="m-message custom-css cookie-content">
+              <?php if ( $block->getShow() == 'default' ) : $policyUrl = '#'; //$block->getUrl('cookie-policy'); ?>
+                 <span><strong><?= __('Our cookies') ?></strong></span>
+                 <p><?= __('In order to give you the best experience, we use cookies and similar technologies for performance, analytics, personalisation, advertising, and to help our site function. Want to know more? Read our <a href="%1" id="cookie_policy_link">Cookie Policy</a>.',$policyUrl); ?></p>
+              <?php else :
+                  echo $block->getCustomMessage();
+              endif;
+              ?>
+          </div>
+          <div id="action-custom-css" class="m-actions custom-css">
+              <a href="#" id="accept-mcookiepolicy" class="m-button m-accept">
+                  <?php if ( $block->getShow() == 'default' ) :
+                      echo "Yes, allow all";
+                  else :
+                      echo $block->getCustomAccept();
+                  endif;
+                  ?>
+              </a>
+
+          </div>
+        </div>
+    </div>
+    <div id="v-badge" class="v-badge" style="display:none">Cookie Settings</div>
+    <script type="text/javascript">
+
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/modal',
+            'mage/cookies'
+        ], function ($,modal) {
+
+            var behaviour = <?php echo $block->getBehaviour(); ?>,
+                onScroll =<?php echo ((int)$block->onscroll()==1 && (int)$block->getAutoAccept()==1)? 1: 0 ?>,
+                expire =<?php echo $block->getAutoExpire() ?>;
+
+            class CookPol {
+                constructor(expire, onScroll, behaviour) {
+                    this.expire = expire;
+                    this.onScroll = onScroll;
+                    this.behaviour = behaviour;
+
+                    if (this.expire == 0) {
+                        this.expire = 1;
+                    } else {
+                        this.expire = <?php echo $block->getAutoExpire() ?>;
+                    }
+                }
+                init() {
+                    var self = this;
+                    if (self.onScroll == 1) {
+                        window.onscroll = function () {
+                            self.custom();
+                        };
+                    }
+
+                    $('#v-badge').on('click', function(){
+                        self.showDiv();
+                    });
+                    $('#accept-mcookiepolicy').on('click', function(e){
+                        e.preventDefault();
+                        self.cookieNoticeAccept();
+                    });
+
+                    if (!$.cookie('cookienotice')){
+                        setTimeout(function(){
+                            $('#m-cookienotice').show();
+                            $('#cookienotice_overlay').show();
+                        },3000);
+                    } else if($.cookie('cookienotice')) {
+                        $('#m-cookienotice').hide();
+                        $('#cookienotice_overlay').hide();
+                    }
+
+                    $("body").on('click', "#cookie_policy_link", function(){
+                        var popupOptions = {
+                            type: 'popup',
+                            responsive: true,
+                            innerScroll: true,
+                            title: 'Cookie Policy',
+                            buttons: [],
+                            wrapperClass: 'modals-wrapper medium-popup'
+                        };
+                        var popup = modal(popupOptions, $('#ss_cookienotice_policy_popup'));
+                        popup.openModal();
+                    });
+                }
+
+                custom(){
+                    if($('#m-cookienotice').is(":visible")){
+                        var d = new Date();
+                        if (this.behaviour) {
+                            d.setTime(d.getTime() + (this.behaviour + this.expire * 24 * 60 * 60 * 1000));
+                            //var expires = "expires=" + d.toUTCString();
+                        } else {
+                            d.setTime(d.getTime() + (this.expire * 24 * 60 * 60 * 1000));
+                        }
+                        if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+                            $.cookie('cookienotice', 'true', {expires: d, path:'/; SameSite=Lax', secure:'HttpOnly'}); // Set Cookie Expiry Time
+                            $('#m-cookienotice').hide();
+                            $('#cookienotice_overlay').hide();
+                        }
+                    }
+                }
+                showDiv() {
+                    setTimeout(function(){
+                        $('#m-cookienotice').show();
+                        $('#cookienotice_overlay').show();
+                        $('#v-badge').hide();
+                    },3000);
+                }
+                cookieClose() {
+                    $('#v-badge').show();
+                    $('#m-cookienotice').hide();
+                    $('#cookienotice_overlay').hide();
+                }
+
+                cookieNoticeAccept() {
+                    var d = new Date();
+                    if (this.behaviour) {                        
+                        d.setTime(d.getTime() + (this.behaviour + this.expire * 24 * 60 * 60 * 1000));
+                    } else {
+                        d.setTime(d.getTime() + (this.expire * 24 * 60 * 60 * 1000));
+                    }
+                    $.cookie('cookienotice', 'true', {expires: d, path:'/; SameSite=Lax', secure:'HttpOnly'}); // Set Cookie Expiry Time
+                    $('#m-cookienotice').hide();
+                    $('#cookienotice_overlay').hide();
+                }
+            }
+
+           var cookiePolicy =   new CookPol(expire, onScroll, behaviour);
+           cookiePolicy.init();
+            <?php if ($block->getAutohide()) : ?>
+            setTimeout(function () {
+                $('#m-cookienotice').hide();
+                $('#cookienotice_overlay').hide();
+            }, <?php echo $block->getAutohide() * 1000; ?>);
+            <?php endif; ?>
+            <?php if ($block->getAutoAccept()) : ?>
+            setTimeout(function () {
+                cookiePolicy.cookieNoticeAccept();
+            }, <?php echo $block->getAutoAccept() * 1000; ?>);
+            <?php endif; ?>
+        });
+    </script>
+<?php endif; ?>
+<div id="ss_cookienotice_policy_popup" style="display: none;">
+    <div id="ss_cookienotice_policy_dynamic">
+        <?= $block->getChildHtml('cookie_policy_block'); ?>
+    </div>
+</div>

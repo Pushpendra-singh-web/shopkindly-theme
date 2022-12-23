@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.sku" remove="true"/>
+        <referenceBlock name="product.info.mailto" remove="true"/>
+        <referenceBlock name="view.addto.compare" remove="true"/>
+        <!--move element="product.info.review" destination="product.info.main" before="product.info.price"/-->
+        <!--referenceBlock name="breadcrumbs" remove="true" /-->
+        <referenceContainer name="content">
+          <container name="product.row.division" htmlTag="div" htmlClass="product-row-division">
+            <container name="left.main" htmlTag="div" htmlClass="left-main"></container>
+            <container name="right.main" htmlTag="div" htmlClass="right-main">
+                <container name="product.top" htmlTag="div" htmlClass="product-top" before="-">
+                    <container name="product.price" htmlTag="div" htmlClass="product-price"/>
+                  </container>
+            </container>
+          </container>
+          <container name="product.row2.division" htmlTag="div" htmlClass="product-row-division">
+            <container name="left1.main" htmlTag="div" htmlClass="left-main"></container>
+            <container name="right1.main" htmlTag="div" htmlClass="right-main"></container>
+          </container>
+        </referenceContainer>
+
+        <move element="product.info.media" destination="left.main" before="-"/>
+        <move element="product.info.details" destination="right1.main" before="-"/>
+        <move element="require-cookie" destination="product.left.main" after="product.info.details"/>
+        <move element="product.info.main" destination="right.main" before="-"/>
+        <!--move element="seller.products.list.sidebar" destination="right1.main" after="-"/-->
+        <move element="product.info.review" destination="left1.main" after="-"/>
+        <move element="reviews.tab" destination="left1.main" after="product.info.review"/>
+        <move element="view.addto.wishlist" destination="left-main" before="product.info.media"/>
+        <move element="page.main.title" destination="product.top" before="-"/>
+        <move element="product.price.final" destination="product.price" before="-"/>
+        <move element="product.info.main" destination="right.main" after="product.top"/>
+        <move element="product.info.stock.sku" destination="product.info.main" after="product.price.final"/>
+
+    </body>
+</page>

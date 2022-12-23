@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist $block */
+
+?>
+
+<?php
+$wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
+
+
+
+?>
+
+
+<?php if ($block->getWishlistHelper()->isAllow()): ?>
+
+<?php
+
+$wishlistCollection = $wishlistHelper->getWishlistItemCollection();
+foreach ($wishlistCollection as $_wishlist_item) {
+
+   $in_wishlist = false;
+   if ($block->getProduct()->getId() == $_wishlist_item->getProduct()->getId()) {
+       $in_wishlist = true; break;
+   }
+}
+
+?>
+
+
+<?php
+
+if(!empty($in_wishlist) && $in_wishlist){ ?>
+        <span class="already action towishlist"><?= $block->escapeHtml(__('Already In wishlist')) ?></span>
+<?php }else{ ?>
+  <a href="#"
+       class="action towishlist"
+       title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
+       aria-label="<?= $block->escapeHtmlAttr(__('Save')) ?>"
+       data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($block->getProduct()) ?>'
+       data-action="add-to-wishlist"
+       role="button">
+        <span><?= $block->escapeHtml(__('Save')) ?></span>
+    </a>
+<?php } ?>
+
+
+<?php endif; ?>

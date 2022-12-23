@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category  WTW
+ * @package   WTW_Marketplace
+ * @author    Webstheword
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="sales_order_gridx" />
+            <referenceBlock name="sales_order_grid" remove="true" />
+        </referenceContainer>
+    </body>
+</page>

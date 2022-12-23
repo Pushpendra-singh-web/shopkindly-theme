@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+      <head>
+          <script src="/js/packaging.js"/>
+      </head>
+    <body>
+<referenceBlock name="checkout.root">
+    <arguments>
+        <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+                <item name="checkout" xsi:type="array">
+                    <item name="children" xsi:type="array">
+                        <item name="sidebar" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="summary" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="discount" xsi:type="array">
+                                            <item name="component" xsi:type="string">Magento_SalesRule/js/view/payment/discount</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="errors" xsi:type="array">
+                                                    <item name="sortOrder" xsi:type="string">10</item>
+                                                    <item name="component" xsi:type="string">Magento_SalesRule/js/view/payment/discount-messages</item>
+                                                    <item name="displayArea" xsi:type="string">messages</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+    </arguments>
+</referenceBlock>
+
+<referenceBlock name="checkout.cart.totals">
+    <arguments>
+        <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+                <item name="block-totals" xsi:type="array">
+                    <item name="children" xsi:type="array">
+                        <item name="tax" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="componentDisabled" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+    </arguments>
+</referenceBlock>
+
+<referenceContainer name="checkout.cart.container">
+            <container name="cart.discount" label="Cart Discount Container" htmlTag="div" htmlClass="cart-discount" />
+</referenceContainer>
+<referenceBlock name="checkout.cart.shipping">
+    <arguments>
+        <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+                <item name="block-summary" xsi:type="array">
+                    <!-- My custom part: -->
+                    <item name="config" xsi:type="array">
+                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+    </arguments>
+</referenceBlock>
+        <move element="checkout.cart.crosssell" destination="checkout.cart.container" after="-" />
+        <!--move element="checkout.cart.coupon" destination="cart.discount" /-->
+
+        <!--move element="checkout.cart.coupon" destination="cart.summary" before="cart.summary"/-->
+        <move element="checkout.cart.shortcut.buttons" destination="checkout.cart.methods" after="checkout.cart.methods.onepage.bottom"/>
+        <referenceContainer name="columns.top">
+            <container name="page.delievery.note" before="page.messages" htmlTag="div" htmlClass="delievery-note">
+                <block class="Magento\Framework\View\Element\Template" name="temp.develivery.note" template="Magento_Checkout::cart/delivery_note.phtml" />
+            </container>
+        </referenceContainer>
+    </body>
+</page>

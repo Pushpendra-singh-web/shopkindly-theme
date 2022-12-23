@@ -1,0 +1,53 @@
+<?php
+
+$helper = $this->helper('Meetanshi\FacebookChat\Helper\Data');
+
+$enable = $helper->isEnable();
+$appId = $helper->getFBAppId();
+$pageId = $helper->getFBPageId();
+$color =  $helper->getFBColor();
+
+$color = str_replace('#','',$color);
+$color = '#'.$color;
+
+$loginText = $helper->getFBLoginText();
+$logoutText = $helper->getFBLogoutText();
+
+if($enable){
+    if (empty($loginText)){
+        $loginText = 'Hi! What can i Help you?';
+    }
+    if (empty($logoutText)){
+        $logoutText = 'Hi! What can i Help you?';
+    }
+    ?>
+
+    <div id="fb-root"></div>
+    <script async defer>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId            : '<?php echo $appId;?>',
+                xfbml            : true,
+                version          : 'v4.0'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <div class="fb-customerchat"
+         attribution=setup_tool
+         page_id="<?php echo $pageId;?>"
+         theme_color="<?php echo $color;?>"
+         logged_in_greeting="<?php echo $loginText;?>"
+         logged_out_greeting="<?php echo $logoutText;?>">
+    </div>
+<?php
+}
+?>

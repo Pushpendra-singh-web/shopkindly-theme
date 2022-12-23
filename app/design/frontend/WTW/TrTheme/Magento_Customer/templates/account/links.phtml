@@ -1,0 +1,13 @@
+<?php
+$html = '';
+if ($block->getLinks()) {
+    $html = '<ul' . ($block->hasCssClass() ? ' class="' . $block->escapeHtml(
+        $block->getCssClass()
+    ) . '"' : '') . ' data-target="dropdown">';
+    foreach ($block->getLinks() as $link) {
+        $html .= $block->renderLink($link);
+    }
+    $html .= '</ul>';
+}
+
+echo $html;

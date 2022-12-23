@@ -1,0 +1,14 @@
+
+ <?php $customer = $this->helper('Wtw\Customerloggedin\Helper\Data'); ?>
+ <?php //if($customer->getLoggedinCustomerName() != NULL){?>
+	 <!--<li class="loggedin-customer-name">
+	 	<?php echo 'Hello, '.$customer->getLoggedinCustomerName() ;?>
+	 </li>-->
+<?php //} ?>
+
+<?php
+$viewModel = $block->getViewModel();
+if ($viewModel->isLoggedIn()) {
+    ?>
+<li><a <?=$block->getLinkAttributes();?> > <?=$block->escapeHtml($block->getLabel())?></a></li>
+<?php } ?>

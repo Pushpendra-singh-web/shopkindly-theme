@@ -1,0 +1,117 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Email extend styles
+//  _____________________________________________
+
+//  This file should be used for theme-specific styles for emails that extend or modify the styles in _email.less
+//  This will allow you to edit email styles without copying and editing the _email.less file
+
+//  Importing fonts from an external CSS file, rather than embedding @font-face declarations inside the <style> tag,
+//  as the latter will cause font rendering issues if the web fonts are inaccessible.
+
+@import url("@{baseUrl}css/email-fonts.css");
+
+.header {
+    background-color: @email__background-color;
+    padding: @email-body__padding;
+}
+
+.footer {
+    background-color: @email__background-color;
+    padding: @email-body__padding;
+
+    table {
+        width: 100%;
+
+        td {
+            padding-bottom: @email-body__padding;
+            width: 33%;
+
+            p {
+                margin-bottom: 0;
+
+                &.phone {
+                    font-size: @font-size__l;
+
+                    a {
+                        color: @color-white !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+    .header,
+    .main-content,
+    .footer {
+        padding: @email-body__padding @indent__s !important;
+    }
+
+    .footer {
+        td {
+            display: block;
+            width: auto !important;
+        }
+    }
+}
+
+
+
+.header{
+    background: #fff;
+    text-align: center;
+    padding: 0 10px;
+}
+.main-content{
+    font-size: 14px;
+    letter-spacing: .5px;
+    color: #2b2b2b !important;
+}
+h1, h3, .greeting{
+    font-weight: bold;
+}
+.wrapper-inner{
+     background: #f4f4f4;
+}
+.footer{
+     background: #585757;
+     text-align: center;
+}
+.footer ul{
+    margin: 0;padding: 0;
+}
+.footer ul li{
+    display: inline-block; margin: 0 5px;
+}
+.footer ul li a, .footer ul li a:hover{
+    color: #fff !important;
+}
+.footer  p{
+     color: #fff;
+    font-size: 11px;
+    font-weight: 100;
+    margin-top: 5px;
+}
+.order-totals th, .order-totals td{
+     background: #f4f4f4 !important;
+}
+.order-details tr > .address-details,
+.order-details tr > .method-info {
+    padding: 15px 15px !important;
+    background: #f4f4f4;
+    border:  solid 2px #fff;
+}
+.express-messages{ color: #507502}
+.na-express-messages{ color: red}
+.top-sec{ background: #f4f4f4 !important;     margin: 0 0 10px !important;}
+.top-sec .email-heading{ padding: 15px; text-align: center; width: 65%}
+.top-sec h1{ font-weight:700;font-size:16px;margin: 3px 0 0;line-height:20px;text-transform:uppercase;}
+.top-sec p{font-weight:normal;line-height:20px;line-height: 18px; margin: 5px;}
+.email-summary{ text-align: center;}
+.closing-text{ text-align: center; font-size: 18px;}

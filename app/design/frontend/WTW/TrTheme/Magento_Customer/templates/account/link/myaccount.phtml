@@ -1,0 +1,6 @@
+<?php
+$viewModel = $block->getViewModel();
+if ($viewModel->isLoggedIn()) {
+    ?>
+<li><a <?=$block->getLinkAttributes();?> > <?=$block->escapeHtml($block->getLabel())?></a></li>
+<?php } ?>

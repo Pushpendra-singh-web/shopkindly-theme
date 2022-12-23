@@ -1,0 +1,67 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+?>
+<?php
+/** @var \Amasty\ShopbyBase\Model\FilterSetting $filterSetting */
+/** @var \Amasty\Shopby\Block\Navigation\FilterRenderer $block */
+?>
+<?php
+$filterCode = $block->escapeHtml($filterSetting->getFilterCode());
+$noFollow = $filterSetting->isAddNofollow() ? ' rel="nofollow"' : '';
+?>
+<div class="items am-filter-items-<?= $block->escapeHtml($filterCode);?> am-dropdown">
+    <form data-amshopby-filter="<?= $block->escapeHtml($filterCode);?>"
+          data-amshopby-filter-request-var="<?= $block->escapeHtml($block->getFilter()->getRequestVar()); ?>">
+    <?php if (count($filterItems) > 0) :?>
+        <select
+            <?= /* @noEscape */ $filterSetting->isMultiselect() ? 'multiple="on"' : ''; ?>
+
+            class="am-shopby-filter-<?= $block->escapeHtml($filterCode); ?> am-select"
+            name="amshopby[<?= /* @noEscape */ $block->getFilter()->getRequestVar();?>][]"
+        >
+            <?php if (!$filterSetting->isMultiselect()) :?>
+                <option value=""
+                    href="<?= /* @noEscape */ $block->getClearUrl() ? $block->escapeUrl($block->getClearUrl()) : '#' ?>"
+                    <?= /* @noEscape */ $noFollow ?>>
+                    <?= $block->escapeHtml(__("Select Option ..."));?>
+                </option>
+            <?php endif;?>
+            <?php /** @var \Amasty\Shopby\Model\Layer\Filter\Item $filterItem */?>
+            <?php foreach ($filterItems as $filterItem) :
+                $disabled = ($filterItem->getCount() == 0) ? ' disabled' : "";
+                $selected = ($block->checkedFilter($filterItem)) ? ' selected' : "";
+                $url = $filterItem->getUrl();
+                $label = $filterItem->getOptionLabel();
+                if ($filterSetting->isShowProductQuantities()) {
+                    $label .= ' <span class="count">(' . $filterItem->getCount() . ')</span>';
+                }
+                ?>
+                <option value="<?= $block->escapeHtml($filterItem->getValueString());?>"
+                        href="<?= $block->escapeUrl($url) ?>"
+                        <?= /* @noEscape */ $noFollow ?>
+                        <?= /* @noEscape */ $disabled . $selected ?>
+                >
+                    <?= /* @noEscape */ $label ?>
+                </option>
+            <?php endforeach ?>
+            <script type="text/x-magento-init">
+                {
+                    ".am-shopby-filter-<?= /* @noEscape */ $filterCode; ?>": {
+                        "amShopbyFilterDropdown": {
+                            "collectFilters": <?= /* @noEscape */ $block->collectFilters();?>,
+                            "isMultiselect": <?= /* @noEscape */ ($filterSetting->isMultiselect()) ? 1 : 0; ?>
+                        }
+                    }
+                }
+            </script>
+        </select>
+    </form>
+    <?php endif; ?>
+</div>
+<?php if ($filterSetting->getAddFromToWidget() && isset($fromToConfig) && is_array($fromToConfig)) :?>
+    <?= /* @noEscape */ $block->getFromToWidget('dropdown') ?>
+<?php endif;?>

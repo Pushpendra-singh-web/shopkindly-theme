@@ -1,0 +1,69 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+
+?>
+<div class="block newsletter">
+    <div class="title"><strong><?= $block->escapeHtml(__('Newsletter signup for charming deals')) ?></strong></div>
+    <div class="content">
+        <form class="form subscribe"
+            novalidate
+            action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+            method="post"
+            data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+            id="newsletter-validate-details">
+            <!-- <input type="hidden" name="form_key" value="<?php //echo $block->getFormKey() ?>" /> -->
+            <div class="field newsletter">
+                <div class="control">
+                    <input name="email" type="email" id="newsletter"
+                                placeholder="<?= $block->escapeHtmlAttr(__('Your email address')) ?>"
+                                data-mage-init='{"mage/trim-input":{}}'
+                                data-validate="{required:true, 'validate-email':true}"
+                    />
+                </div>
+                <div style="display:none" id="error-msg">
+                  <span><?php echo __('This is a required field.') ?></span>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary sr-only" title="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>" type="submit" click="onSubmit()" aria-label="<?php echo $block->escapeHtmlAttr(__('Subscribe')) ?>">
+                    <span><?php echo $block->escapeHtmlAttr(__('Sign Up')) ?></span>
+                </button>
+            </div>
+            <!--div class="actions">
+                <button id="button-activate" data-sitekey="6LcYyecUAAAAANHg5Ft0hJZ7ilk5w2j5S8djQ4rX"  onclick="myCaptcha()" class="action subscribe primary g-recaptcha" title="<?php //echo $block->escapeHtmlAttr(__('Subscribe')) ?>" type="button">
+                    <i class="icon"></i>
+                    <span><?php //echo $block->escapeHtml(__('Subscribe')) ?></span>
+                </button>
+            </div-->
+        </form>
+    </div>
+</div>
+<!--script src="https://www.google.com/recaptcha/api.js" defer></script-->
+<script>
+    /*function myCaptcha(){
+        var newsletterval = jQuery('#newsletter').val();
+        if(newsletterval == '')
+        {
+            console.log(grecaptcha.getResponse());
+            jQuery('#error-msg').css('display', 'block');
+            jQuery('#error-msg').css('color', '#e02b27');
+            jQuery('#error-msg').css('font-size', '1.2rem');
+            return false;
+        }else{
+            onSubmit();
+        }
+
+    }*/
+
+    function onSubmit() {
+        jQuery('#newsletter-validate-details').trigger('submit');
+    }
+
+</script>

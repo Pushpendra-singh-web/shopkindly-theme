@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body> 
+        <referenceBlock name="meetanshi_cookienotice_top">
+            <arguments>
+                <argument name="view_model" xsi:type="object">WTW\CookieExtd\ViewModel\WidgetBlock</argument>
+            </arguments> 
+            <block class="Magento\Cms\Block\Widget\Block" name="cookie_policy_block" template="widget/static_block/default.phtml">
+            	<arguments>
+	                <argument name="block_id" xsi:type="string">cookie-policy</argument>
+	            </arguments>
+            </block>
+        </referenceBlock> 
+    </body>
+</page>

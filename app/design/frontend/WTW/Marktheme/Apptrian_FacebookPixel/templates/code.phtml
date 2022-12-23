@@ -1,0 +1,94 @@
+<?php
+/**
+ * @category  Apptrian
+ * @package   Apptrian_FacebookPixel
+ * @author    Apptrian
+ * @copyright Copyright (c) 2018 Apptrian (http://www.apptrian.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License
+ */
+
+/**
+ * Facebook Pixel Code block
+ *
+ * @var $block \Apptrian\FacebookPixel\Block\Code
+ */
+
+$data   = $block->getFacebookPixelData();
+$id     = $data['id'];
+$action = $data['full_action_name'];
+
+?>
+<!-- Facebook Pixel Code -->
+<script type="text/javascript" async defer>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.agent='dvapptrian';n.queue=[];
+t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '<?php echo $block->escapeHtml($id) ?>');
+fbq('track', 'PageView');
+
+<?php if ($action == 'catalog_product_view') : ?>
+<?php
+$productData = $block->getProductData();
+if ($productData !== null) : ?>
+fbq('track', 'ViewContent', {
+    content_name: '<?php echo $block
+        ->escapeHtml($productData['content_name']) ?>',
+    content_ids: ['<?php echo $block
+        ->escapeHtml($productData['content_ids']) ?>'],
+    content_type: 'product',
+    value: <?php echo $block->escapeHtml($productData['value']) ?>,
+    currency: '<?php echo $block->escapeHtml($productData['currency']) ?>'
+});
+//Add Pixel Events to the button's click handler
+if (typeof jQuery != 'undefined') {
+    jQuery('#product-addtocart-button').click(function() {
+        fbq('track', 'AddToCart', {
+            content_name: '<?php echo $block
+                ->escapeHtml($productData['content_name']) ?>',
+            content_ids: ['<?php echo $block
+                ->escapeHtml($productData['content_ids']) ?>'],
+            content_type: 'product',
+            value: <?php echo $block->escapeHtml($productData['value']) ?>,
+            currency: '<?php
+                echo $block->escapeHtml($productData['currency']) ?>'
+        });
+    });
+}
+<?php endif; ?>
+<?php elseif ($action == 'catalogsearch_result_index'
+    || $action == 'catalogsearch_advanced_result') : ?>
+fbq('track', 'Search');
+<?php elseif ($action == 'customer_account_create') : ?>
+fbq('track', 'CompleteRegistration');
+<?php elseif ($action == 'checkout_index_index'
+    || $action == 'onepagecheckout_index_index'
+    || $action == 'onestepcheckout_index_index'
+    || $action == 'opc_index_index') : ?>
+fbq('track', 'InitiateCheckout');
+<?php elseif ($action == 'checkout_onepage_success'
+    || $action == 'onepagecheckout_index_success') : ?>
+<?php
+    echo $block->getChildHtml(
+        'apptrian.facebookpixel.checkout.success.purchase'
+    );
+?>
+<?php elseif ($action == 'wishlist_index_index') : ?>
+fbq('track', 'AddToWishlist');
+<?php
+// cms_index_index or cms_page_view or catalog_category_view
+// or any other page do not add anything.
+// (PageView is already added at the top.)
+else : ?>
+
+<?php endif; ?>
+
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="Facebook Pixel" 
+src="https://www.facebook.com/tr?id=<?php
+    echo $block->escapeHtml($id) ?>&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->

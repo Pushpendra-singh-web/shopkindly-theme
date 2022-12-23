@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+?>
+<?php
+/** @var \Amasty\Xsearch\Block\Jsinit $block */
+?>
+<script>
+    require([
+        'Amasty_Xsearch/js/form-mini',
+        'Amasty_Xsearch/js/searchClick'
+    ], function (autoComplete, searchClick) {
+        'use strict';
+        window.xsearch_options = <?= /* @noEscape */ $block->getOptions() ?>;
+        searchClick.init('<?= $block->escapeUrl($block->getUrl('amasty_xsearch/product/click'));?>');
+    })
+</script>
+<?php if ($block->isShowRecentPreload() || $block->isShowPopularPreload()): ?>
+    <div id="amasty-xsearch-preload" class="amasty-xsearch-preload" data-amsearch-js="preload">
+        <?= /* @noEscape */ $block->getPreload();?>
+    </div>
+<?php endif;?>

@@ -1,0 +1,113 @@
+#hamper_items_descriptions .tile .pro-shop-all {
+    padding: 0 10px;
+    text-align: center;
+    position: relative;
+    width: calc(100% / 6 - 11px);
+}
+#hamper_items_descriptions .tile .pro-shop-all .button {
+    background: #2b2b2b;
+    text-transform: uppercase;
+    font-family: 'Conv_Gotham Black Regular';
+    letter-spacing: 1px;
+    font-weight: 100!important;
+    color: #fff;
+    padding: 10px 20px;
+    display: inline-block;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 100px;
+    text-align: left;
+}
+.hamper-item-portfolio-wrapper .products-grid .pro-shop-all .button:after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url(../images/arrow-hm.png) no-repeat center center;
+    background-size: 12px;
+    position: absolute;
+}
+.cms-home .hamper-item-portfolio-wrapper #hamper_items_descriptions .tile {
+    display: flex;
+    border-bottom: solid 1px #000;
+}
+.cms-home .hamper-item-portfolio-wrapper #hamper_items_descriptions .tile li.product-item {
+    width: calc(100% / 6 - 11px);
+    margin: 0 0 30px 8px;
+}
+.cms-home .block.widget .products-grid .product-items {
+    margin: 0 0 0 -10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.hm_banner_tovee {
+    background: none;
+    background-size: cover;
+}
+.cms-home .hm_banner_tovee .container-box {
+    max-width: 100%;
+    padding: 0;
+}
+.hm-banner-img img {
+    display: block;
+    width: 100%;
+}
+.hm_banner_tovee .MB {
+    display: none;
+}
+.hm-banner {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+.hm_banner_tovee .hm-banner .hm-banner-in {
+    padding: 10% 0 0 142px;
+    position: absolute;
+    top: 0;
+}
+.hm_banner_tovee .hm-banner .hm-banner-in h1 {
+    font-family: 'Conv_Gotham Black Regular';
+    font-size: calc(12px + 4vw);
+    text-transform: uppercase;
+    color: #000;
+}
+.hm_banner_tovee .MB {
+    display: none;
+}
+@media only screen and (max-width: 1100px) {
+.hm_banner_tovee .hm-banner .hm-banner-in{padding-left:70px}
+}
+
+@media screen and (max-width: 991px) {
+.atc-div .control.qty .add-text-BG {
+  padding: 10px 10px;
+}
+}
+
+@media screen and (max-width: 767px) {
+  .cms-home .hamper-item-portfolio-wrapper #hamper_items_descriptions .tile li.product-item {
+      width: 45%;
+  }
+  #hamper_items_descriptions .tile .pro-shop-all {
+    width: 45%;
+  }
+  #hamper_items_descriptions .tile .pro-shop-all .button {
+    bottom: 60px;
+  }
+  .hm_banner_tovee .MB{display:block}
+  .hm_banner_tovee .DSK{display:none}
+  .hm_banner_tovee .hm-banner .hm-banner-in{padding-top:145px;padding-left:10%;letter-spacing:.8px}
+  .hm_banner_tovee .hm-banner .hm-banner-in h1{font-size:calc(12px + 7vw)}
+  .cms-home .block.widget .products-grid .product-items{margin:0 -5px}
+  #hamper_items_descriptions .tile .pro-shop-all, .cms-home .hamper-item-portfolio-wrapper #hamper_items_descriptions .tile li.product-item{width:50%; margin: 0;box-sizing:border-box; padding:0 5px; margin-bottom: 10px;}
+  .cms-home .block.widget .products-grid .product-items { justify-content: center;}
+}
+@media only screen and (max-width: 480px) {
+.hm_banner_tovee .hm-banner .hm-banner-in h1{font-size:36px;line-height:42px}
+}
+
+@media only screen and (max-width: 350px) {
+  .hm_banner_tovee .hm-banner .hm-banner-in{padding-top:130px}
+  .hm_banner_tovee .hm-banner .hm-banner-in h1{font-size:30px;line-height:36px;max-width:238px}
+}

@@ -1,0 +1,21 @@
+<?php 
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_product = $block->getProduct();
+
+$noValueAvailable = true;
+$attrOutputStr = '';
+$attrOutputStr .= '<table class="tab-table-style">';
+	if($_helper->productAttribute($_product, $_product->getIngredients(), 'ingredients')){
+		$attrOutputStr .= '<tr>';
+			$attrOutputStr .= '<td>';
+			$attrOutputStr .=  $_helper->productAttribute($_product, $_product->getIngredients(), 'ingredients');
+			$attrOutputStr .= '</td>';
+		$attrOutputStr .= '</tr>';
+		$noValueAvailable = false;
+	}
+	
+$attrOutputStr .= '</table>';
+if($noValueAvailable === false){
+	echo $attrOutputStr;
+}
+?>

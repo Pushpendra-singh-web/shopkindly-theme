@@ -1,0 +1,18 @@
+#super-product-table .sub {
+    float: left;
+    margin: 6px 0 0 -6px;
+}
+
+#super-product-table  .add {
+    float: right;
+    margin: -32px -8px 0 0;
+}
+
+#super-product-table  .gropprod-img {
+    height: 100px;
+    width: 100px;
+    float: left;
+    padding-right: 11px;
+}
+
+Don't like the options? Customize it

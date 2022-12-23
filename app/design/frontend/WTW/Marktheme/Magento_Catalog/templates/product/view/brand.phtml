@@ -1,0 +1,34 @@
+<?php 
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+
+$_helper_amsty=$this->helper('WTW\Asoshornav\Helper\Data');
+
+$_product = $block->getProduct();
+if($_helper->productAttribute($_product, $_product->getBrand(), 'brand')){
+foreach ($_helper_amsty->getOptionSettingByValues($_helper->productAttribute($_product, $_product->getBrand(), 'brand'))->getData() as $value) {
+	
+	 $branddesc=$value['description'];
+
+	 $brandname=$value['meta_title'];
+}
+
+if(isset($branddesc)){
+$noValueAvailable = true;
+$attrOutputStr = '';
+$attrOutputStr .= '<table class="tab-table-style">';
+	if($_helper->productAttribute($_product, $_product->getBrand(), 'brand')){
+		$attrOutputStr .= '<tr>';
+			$attrOutputStr .= '<td>';
+			$attrOutputStr .=  $branddesc;
+			$attrOutputStr .= '</td>';
+		$attrOutputStr .= '</tr>';
+		$noValueAvailable = false;
+	}
+	
+$attrOutputStr .= '</table>';
+if($noValueAvailable === false){
+	echo $attrOutputStr;
+}
+}
+}
+?>

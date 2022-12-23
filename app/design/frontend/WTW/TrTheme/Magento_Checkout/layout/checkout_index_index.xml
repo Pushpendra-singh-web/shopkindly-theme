@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header-wrapper">
+          <container name="my.container" as="myContainer" label="My Container" htmlTag="div" htmlClass="left-block" before="-">
+        </container>
+        </referenceContainer>
+        <move element="logo" destination="my.container"  before="-"/>
+        <referenceBlock name="catalog.topnav" remove="false"/>
+        <referenceBlock name="sell.on.tovee" remove="true" />
+        <referenceBlock name="top.search" remove="true" />
+        <referenceContainer name="footer-container"  remove="false"/>
+        <referenceBlock name="authentication-popup" remove="true"/>
+        <referenceBlock name="minicart" remove="true"/>
+    </body>
+</page>

@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php 
+	
+	$productPath = $block->getData('id_path');
+    $pathArray = explode("/", $productPath);
+    $productId = end($pathArray);
+	$productId = trim($productId);
+    $_imageData = $this->helper('WTW\Widget\Helper\Image')->getImageData($productId);
+?>
+
+<div class="widget block block-product-link" data-imgrender="item">
+    <a <?= /* @escapeNotVerified */ $block->getLinkAttributes() ?>>
+    	<?php $imgPath = $block->getData('image_path'); ?>
+    	 
+    	<?php if(!empty($imgPath)){ ?>
+    		<div class="dc-m-img"><img src="<?= rtrim($this->getUrl('pub/media/'.$imgPath), "/"); ?>" /></div>
+    	<?php }else{ ?>
+
+    	<?php $imgAuto = $block->getData('image_auto'); ?>
+    	 
+    	<?php //if(!empty($imgAuto) && $imgAuto=='true'){ ?>
+    	        <div class="dc-m-img-two" data-bind="scope: 'product_image_<?= $productId ?>'">
+                    <!-- ko template: {name: imageTemplate, data: imageData} --><!--/ko -->
+                </div>
+    	<?php } ?>
+
+
+    	<h2><?= $block->escapeHtml($block->getLabel()) ?></h2>
+    </a>
+</div>
+<script type="text/x-magento-init">
+    {
+        "[data-imgrender=item]": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "product_image_<?= $productId ?>": <?php echo json_encode([
+                        "component"=>"Magento_Catalog\/js\/view\/image",
+                        "config"=>["displayArea"=>"defaultRenderer","template"=>$_imageData['template']],
+                        'imageTemplate'=>$_imageData['template'],
+                        'imageData'=> $_imageData
+                    ]); ?>
+                }
+            }
+        }
+    }
+</script>

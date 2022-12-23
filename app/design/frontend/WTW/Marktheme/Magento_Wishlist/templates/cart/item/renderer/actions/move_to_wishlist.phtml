@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Wishlist\Block\Cart\Item\Renderer\Actions\MoveToWishlist $block */
+
+?>
+
+<?php $wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');?>
+<?php if ($block->isAllowInCart()): ?>
+
+<?php
+
+$wishlistCollection = $wishlistHelper->getWishlistItemCollection();
+foreach ($wishlistCollection as $_wishlist_item) {
+
+    $in_wishlist = false;
+    if ($block->getItem()->getProductId() == $_wishlist_item->getProduct()->getId()) {
+        $in_wishlist = true;
+        break;
+    }
+}
+
+?>
+
+
+<?php
+
+if (!empty($in_wishlist) && $in_wishlist) {?>
+        <span class="action towishlist action-towishlist"><?=$block->escapeHtml(__(''))?></span>
+<?php } else {?>
+  <!-- <a href="#"
+       data-post='<//?=/* @noEscape */$block->getMoveFromCartParams()?>'
+       class="use-ajax action towishlist action-towishlist">
+        <span><//?=$block->escapeHtml(__('Move to Wishlist'))?></span>
+    </a> -->
+<?php }?>
+
+
+<?php endif;?>
+<?php if ($block->isAllowInCart() && $block->isProductVisibleInSiteVisibility()): ?>
+
+<?php endif?>

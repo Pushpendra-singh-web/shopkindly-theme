@@ -1,0 +1,41 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="atc-div" data-bind="scope: 'qtysection'">
+  <div class="actions-primary">
+<!-- ko ifnot: $row()['add_to_cart_button']['required_options'] -->
+    <!-- ko if: getItemInfoById($row().id)!='' -->
+    <div class="control qty" data-bind="visible: true" style="display: none;">
+        <button class="decreaseQty" data-bind="attr:{'id':$row().id+'-dec'}" type="button">
+            -
+        </button>
+        <input class="input-text qty" data-bind="attr:{'value':getItemInfoById($row().id)}" data-role="cart-item-qty" data-validate="{required:true,'validate-greater-than-zero':true}" readonly="" size="4" title="Qty" type="number"/>
+        <button class="increaseQty" data-bind="attr:{'id':+$row().id+'-upt'}" type="button">
+            +
+        </button>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: qtysection().isEmpty || getItemInfoById($row().id)=='' -->
+    <if args="$parent.isAllowed()">
+        <if args="$parent.isSalable($row())">
+            <button attr="'data-post': $parent.getDataPost($row()),title: $parent.getLabel()" class="action tocart primary" type="button">
+                <span text="$parent.getLabel()">
+                </span>
+            </button>
+        </if>
+        <ifnot args="$parent.isSalable($row())">
+            <div class="stock unavailable">
+                <!-- <text args="$t('Availability')">
+                </text> -->
+                <span translate="'Out of stock'">
+                </span>
+            </div>
+        </ifnot>
+    </if>
+    <!-- /ko -->
+    </div>
+</div>

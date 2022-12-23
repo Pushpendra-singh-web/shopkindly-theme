@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+     <head>
+        <!-- <link src="Magento_Catalog::css/wishlisthover.css"/> -->
+       </head>
+    <body>
+        <referenceBlock name="product.info.sku" remove="true"/>
+        <referenceBlock name="product.info.mailto" remove="true"/>
+        <referenceBlock name="view.addto.compare" remove="true"/>
+
+        <referenceBlock name="breadcrumbs" remove="false" />
+        <referenceContainer name="content">
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.review.custom" template="Magento_Catalog::product/view/review.phtml"/>
+          <container name="product.row.division" htmlTag="div" htmlClass="product-row-division">
+            <container name="left.main" htmlTag="div" htmlClass="left-main"></container>
+            <container name="right.main" htmlTag="div" htmlClass="right-main">
+                <container name="product.top" htmlTag="div" htmlClass="product-top" before="-">
+
+                </container>
+            </container>
+          </container>
+          <container name="product.row2.division" htmlTag="div" htmlClass="product-row-division row-2">
+            <container name="left1.main" htmlTag="div" htmlClass="left-main"></container>
+            <container name="right1.main" htmlTag="div" htmlClass="right-main"></container>
+          </container>
+        </referenceContainer>
+
+        <referenceContainer name="product.info.form.content"  htmlTag="div" htmlClass="product-info-form-container">
+            <container name="product.price" htmlTag="div" htmlClass="product-price" before="-"></container>
+        </referenceContainer>
+
+        <container name="product.col.reviews.form" htmlTag="div" htmlClass="product-col-reviews-form">
+
+        </container>
+        <!--referenceBlock name="reviews.tab" remove="true" /-->
+
+        <move element="product.info.media" destination="left.main" before="-"/>
+
+        <move element="require-cookie" destination="product.left.main" after="product.info.details"/>
+        <move element="product.info.main" destination="right.main" before="-"/>
+        <!--move element="seller.products.list.sidebar" destination="right1.main" after="-"/-->
+
+        <move element="reviews.tab" destination="product.info.details" after="nutritional_information"/>
+
+        <!--move element="product.col.reviews.form" destination="right.main" after="product.info.details" /-->
+
+        <move element="product.attributes" destination="product.info.main" after="product.info.overview"/>
+
+        <move element="page.main.title" destination="product.top" before="-"/>
+        <move element="view.addto.wishlist" destination="product.info.main" before="-"/>
+        <move element="brand-logo-top" destination="right.main" before="product.top"/>
+        <move element="product.price.final" destination="product.price" before="-"/>
+        <move element="product.info.main" destination="right.main" after="product.top"/>
+        <move element="product.info.stock.sku" destination="product.top" after="product.price"/>
+        <move element="product.info.extrahint" destination="product.info.main" after="product.info.overview"/>
+
+        <move element="product.info.review.custom" destination="product.info.form.content" before="-"/>
+
+
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" template="Magento_Catalog::product/sharethis.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="product.info.extrahint">
+            <block class="Magento\Framework\View\Element\Template" template="Magento_Catalog::product/shareicons.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="product.info.details">
+            <!--block class="Magento\Catalog\Block\Product\View" name="brand.tab" as="brand" template="product/view/brand.phtml" group="detailed_info" before="reviews.tab">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Brand</argument>
+                    <argument name="sort_order" xsi:type="string">20</argument>
+                </arguments>
+            </block-->
+
+            <block class="Magento\Catalog\Block\Product\View" name="ingredients.tab" as="ingredients" template="product/view/ingredients.phtml" group="detailed_info" before="reviews.tab">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Ingredients</argument>
+                    <argument name="sort_order" xsi:type="string">20</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="usage_information.tab" as="usage_information" template="product/view/usage_information.phtml" group="detailed_info" before="reviews.tab">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Usage Information</argument>
+                    <argument name="sort_order" xsi:type="string">30</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="nutritional_information.tab" as="nutritional_information" template="product/view/nutritional_information.phtml" group="detailed_info" before="reviews.tab">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Nutritional Information</argument>
+                    <argument name="sort_order" xsi:type="string">40</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="allergen_information.tab" as="allergen_information" template="product/view/allergen_information.phtml" group="detailed_info" before="reviews.tab">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Allergen Information</argument>
+                    <argument name="sort_order" xsi:type="string">20</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Catalog\Block\Product\View" name="container.tags" after="product.info.overview" before="product.info.details" template="product/view/tag_attribute.phtml"/>
+        </referenceContainer>
+        <move element="product.info.details" destination="right.main" after="product.info.main"/>
+        <move element="catalog.product.related" destination="product.row.division" after="right.main" />
+    </body>
+</page>

@@ -1,0 +1,24 @@
+/*.current {
+    display: block !important;
+    width: 100% !important;
+    float: left;
+    margin-left: -93px;
+    margin-top: 50px;
+}
+
+div#bundleprod-18 .qty {
+    display: none !important;
+}
+
+#super-product-bundle {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  padding: 10px;
+}
+
+#super-product-bundle .grid-item {
+    text-align: center;
+    padding: 10px 5px 10px 5px;
+    margin: 0;
+    text-transform: capitalize;
+}

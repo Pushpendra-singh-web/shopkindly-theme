@@ -1,0 +1,35 @@
+//
+//  Porto Compatibility Styles
+//  __________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .am-porto-cmtb {
+        .page-header.type1 {
+            z-index: 9999;
+        }
+
+        .amsearch-clone-position {
+            & {
+                border: 15px solid transparent;
+                border-top: none;
+                border-radius: 0 0 @amsearch__indent__xl @amsearch__indent__xl;
+                padding: 2px 0;
+            }
+
+            .amsearch-results {
+                border-radius: 0 0 6px 6px;
+                box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+            }
+        }
+
+        .amsearch-autocomplete-information .product-reviews-summary .reviews-actions .action {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+    }
+}

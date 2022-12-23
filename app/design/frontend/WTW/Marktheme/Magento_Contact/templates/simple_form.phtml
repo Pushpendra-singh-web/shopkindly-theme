@@ -1,0 +1,79 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/** @var \Magento\Contact\Block\ContactForm $block */
+?>
+<?php $sitekey = $this->helper('WTW\Seller\Helper\Sitekey'); ?>
+<form class="form contact"
+      action="<?= $block->escapeUrl($block->getUrl('seller/recommendation/submit')) ?>"
+      id="contact-form"
+      onsubmit="return checkCaptcha();"
+      method="post"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <div class="field name required">
+            <label class="label" for="name"><span><?= $block->escapeHtml(__('Your Name')) ?></span></label>
+            <div class="control">
+                <input name="name" id="name" title="<?= $block->escapeHtmlAttr(__('Your Name')) ?>" value="<?= $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field email required">
+            <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input name="email" id="email" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" value="<?= $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+        </div>
+        <div class="field sellername required">
+            <label class="label" for="sellername"><span><?= $block->escapeHtml(__('Seller Name')) ?></span></label>
+            <div class="control">
+                <input name="sellername" id="sellername" title="<?= $block->escapeHtmlAttr(__('Seller Name')) ?>" value="<?= $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('sellername') )?>" class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+         <div class="field sell required">
+            <label class="label" for="sell"><span><?= $block->escapeHtml(__('What do they sell?')) ?></span></label>
+            <div class="control">
+                <input name="sell" id="sell" title="<?= $block->escapeHtmlAttr(__('What do they sell?')) ?>" value="<?= $block->escapeHtmlAttr($this->helper('Magento\Contact\Helper\Data')->getPostValue('sell')) ?>" class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field briefinformation required">
+            <label class="label" for="briefinformation"><span><?= $block->escapeHtml(__('Brief Information')) ?></span></label>
+            <div class="control">
+                <textarea name="comment" id="comment" title="<?= $block->escapeHtmlAttr(__('Brief information')) ?>" class="input-text" cols="5" rows="3" data-validate="{required:true}"><?= $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('comment')) ?></textarea>
+            </div>
+        </div>
+        <div class="field form-group required">
+            <div class="g-recaptcha required" id="recaptcha" data-sitekey="<?php echo $sitekey->getCaptchaSitekey() ?>">
+            </div>
+            <div style="display:none" id="error-msg">
+                  <span><?php echo __('Please Validate Re-captcha') ?></span>
+             </div>
+        </div> 
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                <span><?= $block->escapeHtml(__('Submit')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+<script src="https://www.google.com/recaptcha/api.js" type="text/javascript" xml="space"></script>
+<script>
+    function checkCaptcha() {
+        if ((jQuery('#g-recaptcha-response').val()) === '') {
+            jQuery('#error-msg').css('display', 'block');
+            jQuery('#error-msg').css('color', '#e02b27');
+            jQuery('#error-msg').css('font-size', '1.2rem');
+            return false;
+        }
+        else {
+            jQuery('#error-msg').css('display', 'none');
+        }
+    }
+</script>

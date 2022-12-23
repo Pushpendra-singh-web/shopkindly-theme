@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="before-shipping-method-form" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="shipping_policy" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Magento_Checkout/js/view/checkout/shipping/shipping-note</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="shipping-address-fieldset" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="telephone" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="tooltip" xsi:type="array">
+                                                                            <item name="description" xsi:type="string" translate="true">For delivery questions.</item>
+                                                                        </item>
+                                                                        <item name="notice" xsi:type="string" translate="true">
+                                                                            Please provide the best number to reach you in case of order and delivery issues
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="afterMethods" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <!--Disable Discount here-->
+                                                                <item name="discount" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,66 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div if="hasData()"
+     class="block" css="additionalClasses">
+    <div class="block-title">
+        <strong role="heading"
+                aria-level="2"
+                text="label"/>
+    </div>
+    <div class="block-content">
+        <div css="'products-' + displayMode" class="products wrapper grid products-grid">
+            <ol class="products list items product-items">
+                <li class="item product product-item" repeat="foreach: filteredRows, item: '$row'">
+                    <div class="product-item-info">
+                        <fastForEach args="data: getRegion('general-area'), as: '$col'" >
+                            <render args="$col.getBody()"/>
+                        </fastForEach>
+
+                        <div class="product details product-item-details">
+                            <fastForEach args="data: getRegion('details-area'), as: '$col'" >
+                                <render args="$col.getBody()"/>
+                            </fastForEach>
+                            <div if="getRegion('action-primary-area')().length || getRegion('action-secondary-area')().length"
+                                 class="product-item-actions">
+                                <div class="product actions product-item-actions" if="getRegion('action-primary-area')().length">
+                                    <div class="atc-price-combined recently-viewed-ls">
+                                        <fastForEach args="data: getRegion('action-primary-area'), as: '$col'" >
+                                            <render args="$col.getBody()"/>
+                                        </fastForEach>
+                                    </div>
+                                    <div class="atc-incart-div atc-div" data-bind="scope: 'qtysection'">
+                                        <!-- ko if: getItemInfoById($row().id)!='' -->
+                                          <div class="control qty" data-bind="visible: true" style="display: none;">
+                                              <div class="add-text-BG" data-bind="attr:{'id':'cart_qty_txt'+$row().id}">
+                                                  <span data-bind="text: getItemInfoById($row().id)+ ' in basket'">
+                                                  </span>
+                                              </div>
+                                          </div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <div if="getRegion('action-secondary-area')().length"
+                                     class="actions-secondary"
+                                     data-role="add-to-links">
+                                    <fastForEach args="data: getRegion('action-secondary-area'), as: '$col'" >
+                                        <render args="$col.getBody()"/>
+                                    </fastForEach>
+                                </div>
+                            </div>
+                            <div if="getRegion('description-area')().length"
+                                 class="product-item-description">
+                                <fastForEach args="data: getRegion('description-area'), as: '$col'" >
+                                    <render args="$col.getBody()"/>
+                                </fastForEach>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

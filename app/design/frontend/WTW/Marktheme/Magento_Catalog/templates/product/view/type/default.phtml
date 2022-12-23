@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php $_product = $block->getProduct() ?>
+
+
+<?php
+
+if($_SERVER['REMOTE_ADDR']=='122.173.173.127'){
+//ini_set('memory_limit','1216M');
+
+//echo $_product->getSku();
+
+ //$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    //$StockState = $objectManager->get('\Magento\CatalogInventory\Api\StockStateInterface');
+   // echo $StockState->getStockQty($_product->getId(), $_product->getStore()->getWebsiteId());
+
+
+//die('check');
+
+}
+
+
+
+
+?>
+<?php if ($block->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable()): ?>
+        <div class="stock available" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('In stock') ?></span>
+        </div>
+    <?php else: ?>
+        <div class="stock unavailable" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('Out of stock') ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

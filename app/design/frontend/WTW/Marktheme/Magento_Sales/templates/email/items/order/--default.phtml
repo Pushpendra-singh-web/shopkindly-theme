@@ -1,0 +1,115 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items\DefaultItems */
+
+/** @var $_item \Magento\Sales\Model\Order\Item */
+$_item = $block->getItem();
+$_order = $_item->getOrder();
+
+?>
+<p>How have you been finding your new</p> <strong><?= $block->escapeHtml($_item->getName()) ?></strong>?
+
+<tr>
+       <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
+        <p class="product-name">TEST PRODUCT
+            <?= $block->escapeHtml($_item->getName()) ?>
+        </p>
+       
+        <a class="sku" href="<?= $block->escapeHtml($_item->getProduct()->getProductUrl()) ?>"> <img src="https://shopkindly.wtw.agency/pub/media/catalog/product/"<?= $block->escapeHtml($_item->getProduct()->getThumbnail()) ?> />
+        </a>
+        <?php if ($block->getItemOptions()) : ?>
+            <dl class="item-options">
+            <?php foreach ($block->getItemOptions() as $option) : ?>
+                <dt><strong><em><?= $block->escapeHtml($option['label']) ?></em></strong></dt>
+                <dd>
+                    <?= /* @noEscape */  nl2br($block->escapeHtml($option['value'])) ?>
+                </dd>
+            <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) :?>
+            <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+
+</tr>
+
+    <tr>
+                <td style="width:90%" colspan="2">
+                    <br>
+                    <br>
+                    <br>
+                    <span style="display:none"> Tovee </span>
+                    <table style="width:100%;padding-bottom:20px;border-top:2px solid #000;padding-top:10px">
+                        <tbody><tr>
+                            <td>
+                                <p style="font-size:12px;font-weight:bold;padding:0;margin:0">TOVEE - e-commerce customer support</p>
+                                <p style="font-size:12px;padding:0;margin:0">Have questions? We're here to help. Click <a href="https://www.tovee.com/contact/" style="color:#ff0000;text-decoration:none" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#">here</a> to contact us or to unsubscribe from future communications.</p>
+                            </td>
+                            <td>
+                                <table cellspacing="0" cellpadding="0" border="0" align="right">
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding-left:10px">
+                                                <a href="#" target="_blank" data-saferedirecturl="#"><img src="https://ci5.googleusercontent.com/proxy/6SUj2ijRFGNiPIwZFbs8BaTl3OSGvtGdI3hrHNTRkJJ_GaLFoPh2yzqfcohes4jVb148lIs-IA_R5CDeIIK9qtLh0qFln52YlFUo6SA3d-Nk9cirBZzuiKl147iDHIA=s0-d-e1-ft#https://www.uniqlo.com/custom/img/email/101115-btn_email_social_facebook.jpg" width="27" class="CToWUd"></a>
+                                            </td>
+                                            <td style="padding-left:10px">
+                                                <a href="#" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#"><img src="https://ci6.googleusercontent.com/proxy/Vr53n1lTb6sF-oh8iAHgwMyoy01xtKVYRC0-MOd-AZWBNfFmj3jlnAPxvMcEukLIQLXlSlvLumqqBnwnTnuKsEXNW8rXZ4ayDu-80oy19HxSXGvZvpuoK7Q3ClnBYg=s0-d-e1-ft#https://www.uniqlo.com/custom/img/email/101115-btn_email_social_twitter.jpg" width="27" class="CToWUd"></a>
+                                            </td>
+                                            <td style="padding-left:10px">
+                                                <a href="#" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#"><img src="https://ci6.googleusercontent.com/proxy/t89i4_BXqEdC-DLGBDAgqmDKuzkY0M5yu1j0wApds3Z6DwE27ZdPpW9eX7eFLB7vukBjtNsmHhdrvYvBuMmwyYLkDvb7MepndG0lprka9uZDgwrRQ9V5ZhARsptKwhL0=s0-d-e1-ft#https://www.uniqlo.com/custom/img/email/101115-btn_email_social_instagram.jpg" width="27" class="CToWUd"></a>
+                                            </td>
+                                            <td style="padding-left:10px">
+                                                <a href="#" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#"><img src="https://ci6.googleusercontent.com/proxy/kjv998DhBScgc_zNL2VE9qGs-4-xEokl1Z3BvBjvzfg-TE6FvywqOTWW99DpkhZUTXmq3q0rK9aFTmuoUCx242g9xRmWLRq4TGTap-TzmFDIm4-5jB0lvwDoJVu7-A=s0-d-e1-ft#https://www.uniqlo.com/custom/img/email/101115-btn_email_social_youtube.jpg" width="27" class="CToWUd"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="padding-top:10px">
+                        <tbody><tr>
+                            <td width="40" style="text-align:center">
+                                <a href="#" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#"><img src="https://ci3.googleusercontent.com/proxy/TxrHZu047LPLn1jX-dJ7xblGj83o94YLL0KsE5ZYwbDy9-Y0VcJA9h63oiFQ9q5K5f4Vdl6xnSkF3-eKwV2nEaRzaTtWHyTbvg=s0-d-e1-ft#https://www.uniqlo.com/custom/img/email/logo_uq_01.gif" width="40" height="40" class="CToWUd"></a>
+                            </td>
+
+                            
+
+                            <td width="85" style="text-align:center"><a href="#" style="color:#000000;text-decoration:none;text-transform:uppercase;font-size:11px" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#">delivery</a></td>
+
+                            <td width="85" style="border-left:1px solid #cccccc;text-align:center"><a href="#" style="color:#000000;text-decoration:none;text-transform:uppercase;font-size:11px" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#">returns</a></td>
+
+                            <td width="80" style="border-left:1px solid #cccccc;text-align:center"><a href="#" style="color:#000000;text-decoration:none;text-transform:uppercase;font-size:11px" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#">stores</a></td>
+
+                            <td width="110" style="border-left:1px solid #cccccc;text-align:center"><a href="#" style="color:#000000;text-decoration:none;text-transform:uppercase;font-size:11px" rel="noreferrer noreferrer" target="_blank" data-saferedirecturl="#">click &amp; collect</a></td>
+                        </tr>
+                    </tbody></table>
+                    <table width="100%" style="padding-top:20px">
+                        <tbody><tr>
+                            <td>
+                                <p style="font-size:8px;padding:0;margin:0;text-align:center">Please note: This e-mail was sent from a notification-only address that cannot accept incoming e-mails. Please do not reply to this message.</p>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+            
+            
+            <tr>
+                <td style="width:100%;border:1px solid #000;padding:5px" colspan="2">
+                    <p style="font-size:12px;font-style:italic;font-weight:bold;padding:0;margin:0">Offer terms</p>
+                    <br>
+                    <p style="font-size:12px;font-style:italic;padding:0;margin:0">*Free shipping code is valid for 30 days upon receipt. The total basket value must be a minimum of £30 or more (excluding delivery charges) to automatically qualify for this offer. Please ensure that the UK standard delivery option is chosen during the checkout process. A free shipping code will be sent to you once your review has been moderated. Any reviews that do not meet our review guidelines will not qualify for this offer. Once moderated your review will be published on Tovee.com.</p>
+                </td>
+            </tr>
+
+            

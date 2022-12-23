@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="524px" height="325px" viewBox="0 0 524 325" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>Path 8</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M541.316692,2704.89394 C610.333423,2769.21403 712.601208,2787.97569 848.120048,2761.17891 C1051.39831,2720.98373 979.81891,2687.45526 835.169599,2573.7084 C690.520288,2459.96154 657.559369,2579.52645 577.70842,2624.30809 C524.474454,2654.16252 512.343878,2681.02447 541.316692,2704.89394 Z" id="path-1"></path>
+        <filter x="-14.4%" y="-22.5%" width="128.8%" height="152.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="9" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="20" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.447180707   0 0 0 0 0.447180707   0 0 0 0 0.447180707  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.300000012">
+        <g id="sell-with-us" transform="translate(-488.000000, -2496.000000)">
+            <g id="Path-8">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

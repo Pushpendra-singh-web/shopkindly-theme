@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magento_Theme::css/owl.carousel.css"/>
+    </head>
+    <body>
+        <referenceBlock name="checkout.cart.item.renderers.default.actions.edit" remove="true"/>
+        <referenceBlock name="checkout.cart.item.renderers.configurable.actions.edit" remove="true"/>
+        <referenceBlock name="checkout.cart.item.renderers.simple.actions.edit" remove="true"/>
+        <referenceBlock name="checkout.cart.item.renderers.virtual.actions.edit" remove="true"/>
+        <referenceBlock name="checkout.cart.item.renderers.giftcard.actions.edit" remove="true"/>
+        <referenceBlock name="checkout.cart.item.renderers.grouped.actions.edit" remove="true"/>
+        <referenceBlock name="checkout.cart.item.renderers.downloadable.actions.edit" remove="true"/>
+        <referenceBlock name="checkout.cart.item.renderers.bundle.actions.edit" remove="true"/>
+
+        <!-- <referenceBlock name="catalog.topnav"> -->
+            <!--<block class="Magento\Framework\View\Element\Html\Link" name="ultimate-product-link" template="Magento_Theme::link/item.phtml">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">The Ultimate Hamper</argument>
+                    <argument name="class" xsi:type="string" translate="true">level-top ui-corner-all</argument>
+                    <argument name="anchor_path" xsi:type="string">2162</argument>
+                    <argument name="anchor_type" xsi:type="string">product</argument>
+                    <argument name="li_attribute" xsi:type="array">
+                        <item name="class" xsi:type="string" translate="true">level0 category-item last level-top ui-menu-item</item>
+                    </argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Framework\View\Element\Html\Link" name="deluxe-product-link" template="Magento_Theme::link/item.phtml">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">The Luxury Hamper</argument>
+                    <argument name="class" xsi:type="string" translate="true">level-top ui-corner-all</argument>
+                    <argument name="anchor_path" xsi:type="string">2160</argument>
+                    <argument name="anchor_type" xsi:type="string">product</argument>
+                    <argument name="li_attribute" xsi:type="array">
+                        <item name="class" xsi:type="string" translate="true">level0 category-item last level-top ui-menu-item</item>
+                    </argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Framework\View\Element\Html\Link" name="standart-product-link" template="Magento_Theme::link/item.phtml">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">The Deluxe Hamper</argument>
+                    <argument name="class" xsi:type="string" translate="true">level-top ui-corner-all</argument>
+                    <argument name="anchor_path" xsi:type="string">2158</argument>
+                    <argument name="anchor_type" xsi:type="string">product</argument>
+                    <argument name="li_attribute" xsi:type="array">
+                        <item name="class" xsi:type="string" translate="true">level0 category-item last level-top ui-menu-item</item>
+                    </argument>
+                </arguments>
+            </block>-->
+            <!-- <block class="Magento\Framework\View\Element\Html\Link" name="bundle-product-link" template="Magento_Theme::link/item.phtml">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Create Your Own</argument>
+                    <argument name="class" xsi:type="string" translate="true">level-top ui-corner-all</argument>
+                    <argument name="anchor_path" xsi:type="string">2124</argument>
+                    <argument name="anchor_type" xsi:type="string">product</argument>
+                    <argument name="li_attribute" xsi:type="array">
+                        <item name="class" xsi:type="string" translate="true">level0 category-item last level-top ui-menu-item</item>
+                    </argument>
+                </arguments>
+            </block> -->
+            <!-- <block class="Magento\Framework\View\Element\Html\Link" name="aboutus-cms-link" template="Magento_Theme::link/item.phtml">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">About Us</argument>
+                    <argument name="class" xsi:type="string" translate="true">level-top ui-corner-all</argument>
+                    <argument name="anchor_path" xsi:type="string">about-us/</argument>
+                    <argument name="anchor_type" xsi:type="string">cms</argument>
+                    <argument name="li_attribute" xsi:type="array">
+                        <item name="class" xsi:type="string" translate="true">level0 category-item last level-top ui-menu-item</item>
+                    </argument>
+                </arguments>
+            </block> -->
+
+        <!-- </referenceBlock> -->
+
+        <!-- <referenceContainer name="header.panel.wrapper">
+            <container name="header.panel.verytop" label="Page Top Header Panel" htmlTag="div" htmlClass="panel header blacktop" before="-">
+              <block class="Magento\Cms\Block\Block" name="Promo">
+                <arguments>
+                    <argument name="pre-header-text" xsi:type="string">pre-header-text</argument>
+                </arguments>
+              </block>
+            </container>
+        </referenceContainer> -->
+        <referenceContainer name="header-wrapper">
+          <container name="main.container" as="main" label="My Container" htmlTag="div" htmlClass="main-container" before="-">
+            <container name="left.container" as="leftc" label="My Container" htmlTag="div" htmlClass="left-block" before="-">
+              <container name="account.links.aftercart" label="Accounts link" htmlTag="div" htmlClass="account links field-tooltip toggle custom-account-link">
+                  <block class="Magento\Framework\View\Element\Template" template="Magento_Customer::account/link/usericon.phtml" name="myaccount-link-usericon" before="-"/>
+                  <!--block class="Magento\Framework\View\Element\Html\Links" name="accountlinks.links" template="Magento_Customer::account/links.phtml">
+                      <arguments>
+                          <argument name="css_class" xsi:type="string">account link wrapper field-tooltip-content</argument>
+                      </arguments>
+                      <block class="Magento\Customer\Block\Account\Link" name="my-account-link-wrap" template="Magento_Customer::account/link/myaccount.phtml" before="-">
+                          <arguments>
+                              <argument name="label" xsi:type="string" translate="true">My Account</argument>
+                              <argument name="sortOrder" xsi:type="number">10</argument>
+                              <argument name="view_model" xsi:type="object">WTW\Marketplace\ViewModel\Customer\Account\Auth</argument>
+                          </arguments>
+                      </block>
+                      <block class="Magento\Customer\Block\Account\AuthorizationLink" name="my-account-link">
+                          <arguments>
+                              <argument name="sortOrder" xsi:type="number">20</argument>
+                              <argument name="class" xsi:type="string">myaccount-link-icon</argument>
+                          </arguments>
+                      </block>
+                      <block class="Magento\Customer\Block\Account\RegisterLink" name="my-account-register-link">
+                          <arguments>
+                              <argument name="label" xsi:type="string" translate="true">Create an Account</argument>
+                              <argument name="sortOrder" xsi:type="number">30</argument>
+                          </arguments>
+                      </block>
+                  </block-->
+              </container>
+            </container>
+            <container name="center.container" as="centerc" label="My Container" htmlTag="div" htmlClass="center-block" after="left.container">
+
+            </container>
+            <container name="right.container" as="rightc" label="My Container" htmlTag="div" htmlClass="right-block" after="-">
+              <!-- <container name="sell.on.tovee" label="Sell on tovee" htmlTag="div" htmlClass="sellontovee">
+                  <block class="Magento\Framework\View\Element\Html\Links" name="sellontovee.links">
+                      <arguments>
+                          <argument name="css_class" xsi:type="string">sellontovee links</argument>
+                      </arguments>
+                      <block class="Magento\Framework\View\Element\Html\Link" name="sellontovee-anchor">
+                          <arguments>
+                              <argument name="label" xsi:type="string" translate="true">Sell On Tovee</argument>
+                              <argument name="path" xsi:type="string">marketplace/application/form</argument>
+                              <argument name="class" xsi:type="string">sell-on-tovee</argument>
+                          </arguments>
+                      </block>
+                  </block>
+              </container> -->
+
+            </container>
+          </container>
+        </referenceContainer>
+
+        <referenceContainer name="header.panel.wrapper">
+            <container name="pre.header.text" label="pre header text" htmlTag="div" htmlClass="pre-header-text">
+                <block class="Magento\Cms\Block\Block" name="pre-header-text" before="-">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">pre-header-text</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <!-- <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">105</argument>
+                <argument name="logo_img_height" xsi:type="number">36</argument>
+            </arguments>
+        </referenceBlock> -->
+        <referenceContainer name="footer-container">
+            <container name="before.footer" label="before footer" htmlTag="div" htmlClass="before-foot" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="above_footer" template="Magento_Theme::foottabs.phtml">
+                  <block class="Magento\Cms\Block\Block" name="foot-tab-cms-block">
+                      <arguments>
+                          <argument name="block_id" xsi:type="string">foot-tabs</argument>
+                      </arguments>
+                  </block>
+                </block>
+            </container>
+            <container name="follow.us" label="follow us" htmlTag="div" htmlClass="follow-us">
+                <block class="Magento\Cms\Block\Block" name="follow_us">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">follow_us</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="new.footer" label="new footer" htmlTag="div" htmlClass="new-foot">
+                <block class="Magento\Cms\Block\Block" name="new_footer_mobile">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">new_footer_mobile</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="footer">
+          <container name="new.copy" label="new copy" htmlTag="div" htmlClass="new-copy">
+              <block class="Magento\Cms\Block\Block" name="new_copy" before="-">
+                  <arguments>
+                      <argument name="block_id" xsi:type="string">new_copy</argument>
+                  </arguments>
+              </block>
+              <block class="Magento\Directory\Block\Currency" name="currency" template="currency.phtml"/>
+          </container>
+        </referenceContainer>
+        <referenceBlock name="report.bugs" remove="true" />
+        <move element="top.search" destination="center.container" before="-"/>
+        <move element="minicart" destination="right.container" after="-"/>
+        <move element="main.container" destination="header-wrapper" after="logo"/>
+        <move element="wish-list-link-custom" destination="left.container" before="-"/>
+        <move element="new.footer" destination="footer" before="new.copy"/>
+        <move element="form.subscribe" destination="before.footer" before="-"/>
+        <move element="follow.us" destination="footer" before="-"/>
+        <move element="new_copy" destination="before.body.end"/>
+        <move element="header.links" destination="blacktop.header.links.right" before="-"/>
+        <referenceContainer name="before.body.end">
+          <block class="Magento\Framework\View\Element\Template" name="body_end_js_initiator" template="Magento_Theme::js_init.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <move element="page.messages" destination="top.container" before="-"/>
+    </body>
+</page>

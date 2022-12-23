@@ -1,0 +1,144 @@
+<?php
+$localCode = $block->getLocaleCode();
+?>
+<!-- FACEBOOK -->
+<div id="fb-root"></div>
+<script async defer>
+  if(typeof(fbLikeUrl) != 'undefined'){
+    (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/<?php echo $localCode; ?>/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  }
+</script>
+<script async defer>
+  require(['jquery'], function($){
+    if(typeof(fbLikeUrl) != 'undefined'){
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '<?php echo $block->getAppId() ?>', // App ID
+          status     : true, // check login status
+          cookie     : true, // enable cookies to allow the server to access the session
+          xfbml      : true,  // parse XFBML
+          version    : 'v2.7'
+        });
+        <?php if($customer = $block->getCustomer()){ ?>
+          $('.lrw_share_fb').on("click", function(){
+            FB.ui({
+              method: 'share',
+              mobile_iframe: true,
+              href: window.rewardsCurrentUrl,
+            }, function(response){
+              if (response && !response.error_code) {
+
+                $.ajax({url:window.fbShareUrl, data: { url: window.rewardsEncodeCurrentUrl, product: productId }, type:'POST', success: function(result){
+                  $('.lrw-message').html('').html(result.message);
+                }});
+
+              } else {
+
+              }
+            });
+          });
+
+          FB.Event.subscribe('xfbml.render', function(b){
+            FB.Event.subscribe('edge.create', function(a){
+              $.ajax({url:window.fbLikeUrl, data: { url: window.rewardsEncodeCurrentUrl, product: productId }, type:'POST', success: function(result){
+                $('.lrw-message').html('').html(result.message);
+              }});
+            });
+            FB.Event.subscribe('edge.remove', function(a){
+              $.ajax({url:window.fbUnlikeUrl, type:'POST', data: { url: window.rewardsEncodeCurrentUrl, product: productId }, success: function(result){
+                $('.lrw-message').html('').html(result.message);
+              }});
+            });
+          });
+          <?php } ?>
+        };
+      }
+    });
+  </script>
+
+  <!-- GOOGLE PLUS -->
+  <script async defer>
+    window.___gcfg = {
+      lang: '<?php echo str_replace("_", "-", $localCode); ?>',
+      parsetags: 'onload'
+    };
+  </script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <script async defer>
+    require(['jquery'], function($){
+      jQuery(document).ready(function($) {
+
+        if(typeof(ggLikeUrl) != 'undefined'){
+
+        // The state property is set to "on" for a +1, and "off" for the removal of a +1.
+        rewardsGoogleplusEvent = function(event) {
+          if (event.state == 'on') {
+            $.ajax({url:window.ggLikeUrl, data: { url: window.rewardsEncodeCurrentUrl, product: productId }, type:'POST', success: function(result){
+              $('.lrw-message').html('').html(result.message);
+            }});
+          } else {
+            $.ajax({url:window.ggUnlikeUrl, data: { url: window.rewardsEncodeCurrentUrl, product: productId }, type:'POST', success: function(result){
+              $('.lrw-message').html('').html(result.message);
+            }});
+          }
+        }
+      }
+    });
+    });
+  </script>
+
+  <!-- TWITTER -->
+  <script async defer>
+    require(['jquery'], function($){
+      if(typeof(rewardsTwiiterUrl)!='undefined' && rewardsTwiiterUrl!=''){
+        window.twttr = (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0],
+          t = window.twttr || {};
+          if (d.getElementById(id)) return t;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "https://platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js, fjs);
+          t._e = [];
+          t.ready = function(f) {
+            t._e.push(f);
+          }; 
+          return t;
+        }(document, "script", "twitter-wjs"));
+        twttr.ready(function (twttr) {
+          twttr.events.bind('tweet', function (event) {
+            if (!event) {
+              return;
+            }
+            if($(event.target.parentElement).hasClass("lrw-twitter-tweet")){
+              $.ajax({url:window.rewardsTwiiterUrl, type:'POST', data: { url: window.rewardsEncodeCurrentUrl, product: productId }, success: function(result){
+                $('.lrw-message').html('').html(result.message);
+              }});
+            }
+          });
+        });
+      }
+    });
+  </script>
+  <!-- PINTEREST -->
+  <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" async defer></script>
+  <script async defer>
+    require(['jquery'], function($){
+      if(typeof(rewardsPinUrl) != 'undefined' && rewardsPinUrl!=''){
+        var pinOneButton = $('.lrw-pinterest-pin');
+        pinOneButton.on('click', function() {
+          $.ajax({url:window.rewardsPinUrl, data: { url: window.rewardsEncodeCurrentUrl, product: productId }, type:'POST', success: function(result){
+            $('.lrw-message').html('').html(result.message);
+          }});
+        });
+      }
+    });
+  </script>
+  

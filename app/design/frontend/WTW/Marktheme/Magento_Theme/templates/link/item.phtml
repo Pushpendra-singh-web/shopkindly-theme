@@ -1,0 +1,12 @@
+<?php
+$productHelper = $this->helper('Magento\Catalog\Helper\Product');
+$liAttributes = $block->getLiAttribute();
+$anchorType = $block->getAnchorType();
+$url = $block->getAnchorPath();
+if($anchorType==='product'){
+	$url = $productHelper->getProductUrl($block->getAnchorPath());
+} else {
+	$url = $block->getUrl($url,['_secure'=>true]);
+}
+?>
+<li <?=$block->serialize($liAttributes);?>><a href="<?=$url;?>" <?= $block->getLinkAttributes() ?> ><span><?= $this->escapeHtml($this->getLabel()); ?><span></a></li>

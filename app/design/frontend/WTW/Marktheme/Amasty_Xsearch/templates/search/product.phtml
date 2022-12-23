@@ -1,0 +1,126 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_Xsearch
+ */
+?>
+<?php
+/**
+ * @var \Amasty\Xsearch\Block\Search\Product $block
+ * @var array $products
+ * phpcs:ignoreFile
+ */
+$products = $block->getProducts();
+?>
+
+<?php if (count($products)): ?>
+    <div class="amsearch-products" data-amsearch-js="products">
+        <p class="amasty-xsearch-block-header">
+            <?= $block->escapeHtml(__($block->getTitle()))?>
+        </p>
+        <div class="amsearch-wrapper-content">
+            <?php foreach ($products as $id => $product): ?>
+                <div class="amsearch-item product product-item" data-amsearch-js="product-item"
+                     data-click-url="<?= $block->escapeUrl($block->getFullLink($product['url'])) ?>">
+                     <div class="product-item-info">
+                    <div class="amsearch-autocomplete-image">
+                        <?= /* @noEscape */ $product['img'] ?>
+                    </div>
+                    <div class="product details product-item-details">
+                        <strong class="product name product-item-name">
+                          <a class="product-item-link"
+                             href="<?= $block->escapeUrl($block->getFullLink($product['url'])) ?>"
+                             title="<?= $block->escapeHtml($block->stripTags($product['name'])); ?>">
+                              <?= /* @noEscape */ $product['name'] ?>
+                          </a>
+                        </strong>
+                          <div class="amsearch-wrapper-inner product-item-inner">
+                            <div class="product actions product-item-actions">
+                              <?= /* @noEscape */ $product['price'] ?>
+                              <?php if ($block->getAddToCart()) : ?>
+                                  <div class="product actions product-item-actions"
+                                       item-actions="1"
+                                       data-amsearch-js="item-actions">
+                                      <div class="actions-primary">
+                                          <?php if ($product['is_salable']): ?>
+                                              <form id="<?= 'amasty-xsearch-product-' . $block->escapeHtml($id); ?>"
+                                                    data-role="tocart-form"
+                                                    action="<?= $block->escapeHtml($product['cart_post_params']['action']); ?>"
+                                                    method="post" class="amasty-xsearch-form"
+                                              >
+                                                  <input type="hidden" name="product"
+                                                         value="<?= $block->escapeHtml($product['cart_post_params']['data']['product']); ?>">
+                                                  <?php if ($block->isRedirectToCartEnabled()): ?>
+                                                      <input type="hidden" name="return_url"
+                                                             value="<?= $block->escapeHtml($product['cart_post_params']['data']['return_url']); ?>">
+                                                  <?php endif; ?>
+                                                  <input type="hidden"
+                                                         name="<?= $block->escapeHtml($block->getUlrEncodedParam()); ?>"
+                                                         value="<?= $block->escapeHtml($product['cart_post_params']['data'][$block->getUlrEncodedParam()]); ?>">
+                                                  <input name="form_key"
+                                                         type="hidden"
+                                                         value="<?= $block->escapeHtml($block->getFormKey()) ?>"/>
+                                                  <button type="submit"
+                                                          title="<?= $block->escapeHtml(__('Add')); ?>"
+                                                          class="action tocart primary">
+                                                      <span><?= $block->escapeHtml(__('Add')) ?></span>
+                                                  </button>
+                                              </form>
+                                          <?php else: ?>
+                                              <?php if ($product['is_salable']) : ?>
+                                                  <div class="stock available">
+                                                      <span><?= $block->escapeHtml(__('In stock')) ?></span>
+                                                  </div>
+                                              <?php else: ?>
+                                                  <div class="stock unavailable">
+                                                      <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                                  </div>
+                                              <?php endif; ?>
+                                          <?php endif; ?>
+                                      </div>
+
+                                      <div data-role="add-to-links" class="actions-secondary">
+                                          <?php if ($block->isWishlistAllowed()) : ?>
+                                              <a href="#"
+                                                 class="action towishlist"
+                                                 title="<?= $block->escapeHtml(__('Add to Wish List')); ?>"
+                                                 aria-label="<?= $block->escapeHtml(__('Add to Wish List')); ?>"
+                                                 data-post='<?= $block->escapeHtml($product['wishlist_post_params']); ?>'
+                                                 data-action="add-to-wishlist"
+                                                 role="button">
+                                              </a>
+                                          <?php endif; ?>
+                                      </div>
+                                  </div>
+                              <?php endif; ?>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <?php if ($block->getNumResults() > $block->getLimit()): ?>
+            <div class="amsearch-more-results">
+                <a href="<?= $block->escapeUrl($block->getResultUrl()) ?>"
+                   title="<?= $block->escapeHtml(__('View All'))?>"
+                    class="action primary amsearch-link">
+                    <?= $block->escapeHtml(__('View All')) ?>
+                    <span> (<?= $block->escapeHtml($block->getNumResults()) ?>)</span>
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <script>
+        require([
+            'jquery',
+            'mage/mage',
+            'Magento_Catalog/js/catalog-add-to-cart'
+        ], function ($) {
+            'use strict';
+            $('.amasty-xsearch-form').catalogAddToCart({});
+        });
+    </script>
+<?php endif; ?>

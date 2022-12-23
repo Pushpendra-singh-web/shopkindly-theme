@@ -1,0 +1,87 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+?>
+
+<div data-block="minicart" class="minicart-wrapper">
+    <a class="action showcart" href="<?= /* @escapeNotVerified */ $block->getShoppingCartUrl() ?>"
+       data-bind="scope: 'minicart_content'">
+        <span class="text"><?= /* @escapeNotVerified */ __('Cart') ?></span>
+        <span class="counter qty empty"
+              data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
+            <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+            <span class="counter-label">
+            <!-- ko if: getCartParam('summary_count') -->
+                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                <!-- ko i18n: 'items' --><!-- /ko -->
+            <!-- /ko -->
+            </span>
+        </span>
+        <div class="counter amount empty"
+              data-bind="css: { empty: !!getCartParam('subtotal') == false }, blockLoader: isLoading">
+            <div class="amount-value" data-bind="html: getCartParam('subtotal')"></div>
+        </div>
+    </a>
+    <?php if ($block->getIsNeedToDisplaySideBar()): ?>
+        <div class="minicart-overlay"></div>
+        <div class="block block-minicart empty"
+             data-role="dropdownDialog"
+             data-mage-init='{"dropdownDialog":{
+                "appendTo":"[data-block=minicart]",
+                "triggerTarget":".showcart",
+                "timeout": "2000",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":[]}}'>
+            <div class="minicart-heading"><span>Shopping Bag</span></div>
+            <div id="minicart-content-wrapper" data-bind="scope: 'minicart_content'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <div class="minicart-stripe-content" data-bind="scope: 'minicart_content'">
+                <div class="minicart-stripe" data-bind="visible: getCartParam('summary_count') > 0">
+                    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('minicart_stripe')->toHtml(); ?>
+                </div>
+            </div>
+            <?= $block->getChildHtml('minicart.addons') ?>
+        </div>
+    <?php endif ?>
+    <script>
+        window.checkout = <?= /* @escapeNotVerified */ $block->getSerializedConfig() ?>;
+    </script>
+    <script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+        }
+    }
+    </script>
+</div>
+<div data-bind="scope: 'minicart_content'">
+    <div class="actions" if="getCartParam('summary_count')">
+        <div class="primary">
+            <a href="#" data-target-href="#minicart-content-wrapper a.action.viewcart" class="target-redirect-click"><span data-bind="text: 'Checkout'">Checkout</span></a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery'],function($) {
+        $(document).on('click', '.target-redirect-click', function(event){
+            event.preventDefault();
+            var elem = $($(this).data('target-href'));
+            if(elem.length>0){
+                window.location.href =  $(elem).attr('href');
+            }
+        });
+    });
+</script>

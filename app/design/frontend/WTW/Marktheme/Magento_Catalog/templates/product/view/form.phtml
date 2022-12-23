@@ -1,0 +1,99 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+<?php 
+$_marketHelper = $this->helper('WTW\Marketplace\Helper\ProductVendor'); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $_alcoholurl = $_marketHelper->getAlcoholicVersionUrl($_product);
+   $_alcoholattrval = $_marketHelper->getAlcoholicVersionAttrValue($_product);
+?>
+<?php if($_alcoholattrval == 'non-alcoholic'){ ?>
+            <a href="<?= $_alcoholurl; ?>">Alcohol Version</a>
+<?php } 
+      if($_alcoholattrval == 'alcoholic'){ ?>
+
+            <a href="<?= $_alcoholurl; ?>">No Alcohol Version</a>
+ <?php } ?>
+<span class="hideIfMobile"></span>
+<div class="product-add-form">
+    <form data-product-sku="<?= /* @NoEscape */ $_product->getSku() ?>"
+          action="<?= /* @NoEscape */ $block->getSubmitUrl($_product) ?>" method="post"
+          id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $_product->getId() ?>" />
+        <input type="hidden" name="selected_configurable_option" value="" />
+        <input type="hidden" name="related_product" id="related-products-field" value="" />
+        <?= $block->getBlockHtml('formkey') ?>
+        <?= $block->getChildHtml('form_top') ?>
+        <?php if ($block->hasOptions()):?>
+            <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+        <?php endif; ?>
+        <?php if (!$block->hasOptions()):?>
+            <?= $block->getChildHtml('product_info_form_content') ?>
+        <?php else:?>
+            <?php if ($_product->isSaleable() && $block->getOptionsContainer() == 'container1'):?>
+                <?= $block->getChildChildHtml('options_container') ?>
+            <?php endif;?>
+        <?php endif; ?>
+
+        <?php if ($_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2'):?>
+            <?= $block->getChildChildHtml('options_container') ?>
+        <?php endif;?>
+        <?= $block->getChildHtml('form_bottom') ?>
+    </form>
+</div>
+<script>
+    require([
+        'jquery',
+        'priceBox'
+    ], function($){
+        var dataPriceBoxSelector = '[data-role=priceBox]',
+            dataProductIdSelector = '[data-product-id=<?= $block->escapeHtml($_product->getId()) ?>]',
+            priceBoxes = $(dataPriceBoxSelector + dataProductIdSelector);
+
+        priceBoxes = priceBoxes.filter(function(index, elem){
+            return !$(elem).find('.price-from').length;
+        });
+
+        priceBoxes.priceBox({'priceConfig': <?= /* @escapeNotVerified */ $block->getJsonConfig() ?>});
+    });
+</script>
+<script type="text/javascript">
+    require(['jquery'], function($j){
+        var atcHeader = $j(".product-row-division > .right-main");
+        var sticky = atcHeader.offset().top+atcHeader.height();
+        function scrollAtcSection(){
+            if (window.pageYOffset > sticky) {
+                $j('body').addClass("fixed-form-float");
+                if(isMobileView()){
+                    $j('body').css('margin-bottom',atcHeader.height());
+                }
+            } else {
+                $j('body').removeClass("fixed-form-float");
+                if(isMobileView()){
+                    $j('body').css('margin-bottom',0);
+                }
+            }
+        }
+        function isMobileView(){
+            if($j('.hideIfMobile').is(':visible')){
+                return false;
+            }
+            return true;
+        }
+
+        window.onscroll = function() {scrollAtcSection()};
+    });
+</script>

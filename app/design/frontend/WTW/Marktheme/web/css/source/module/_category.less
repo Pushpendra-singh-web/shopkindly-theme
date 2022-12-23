@@ -1,0 +1,14 @@
+.page-layout-1column .products ~ .toolbar-products{
+    padding-top:10px;
+    border-top:1px solid #e8e8e859;
+    display: flex;
+    justify-content: space-between;
+    &:before, &:after{
+      content:none;
+    }
+    .limiter{
+      @media @mobile{
+        font-size: 12px;
+      }
+    }
+}

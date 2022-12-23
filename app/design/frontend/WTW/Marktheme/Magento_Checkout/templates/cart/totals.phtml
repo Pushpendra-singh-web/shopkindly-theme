@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Shopping cart totals template
+ * @var $block \Magento\Checkout\Block\Cart\Totals
+ */
+?>
+<div id="cart-totals" class="cart-totals" data-bind="scope:'block-totals'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+            {
+                "#cart-totals": {
+                    "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+                }
+            }
+    </script>
+</div>
+<button type="button"
+            data-role="proceed-to-checkout"
+            title="<?= /* @escapeNotVerified */ __('Proceed to Checkout') ?>"
+            
+            class="action primary checkout" id="proceed_to_checkout">
+        <span><?= /* @escapeNotVerified */ __('Proceed to Checkout') ?></span>
+</button>
+<style>
+.checkout-cart-index .cart-totals + #proceed_to_checkout{display: none;}
+@media screen and (max-width:767px){
+.checkout-cart-index .cart-totals + #proceed_to_checkout {
+    display: block;
+    background: #73f440;
+    width: 100%;
+    padding: 12px 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+</style>
